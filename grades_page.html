@@ -5,55 +5,58 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <style>
-        header {
-            background-color: dimgray;
-            padding: 10px;
-            text-align:left;
-            font-size:20px;
-            color:white;
+        <style>
+            * {
+               background-color: #EFEAE6;
+            }
+        .container {
+        display: grid;
+        grid-template-areas:
+            "menu menu"
+            "header1 header2"
+            "content content"
+            "footer footer";
+        grid-template-columns: 80% 20%;
+        background-color:#2D5652;
+        gap: 3px;
+        padding: 5px;
         }
-        .container{
-            display:flex;
-            padding: 5px 10px;
+        .container div {
+        padding: 10px;
         }
-        .gpa{
-            background-color: blanchedalmond;
-            flex: 1;
-            text-align: center;
-            padding:10px;
-            font-size:15px;
+        .container div.header1 {
+        grid-area: header1;
+        text-align: center;
         }
-        .title{
-            background-color: aliceblue;
-            width:70%;
-            font-size:30px;
+        .container div.header2 {
+        grid-area: header2;
+        text-align: center;
         }
-        footer{
-            text-align: center;
-            font-style: italic;
-            background-color: dimgray;
-            color:white;
+        .container div.menu {
+        grid-area: menu;
         }
-    </style>
+        .container div.content {
+        grid-area: content;
+        }
+        .container div.footer {
+        grid-area: footer;
+        text-align: center;  
+        }
+        </style>
     </head>
     <body>
-        <header> Menu ->Buttons + profile </header>
-        <section name="container" class="container">
-            <article name="title" class="title">
-                Student Name - Grades
-            </article>
+        <div class="container">
+            <div class="menu">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+            <div class="header1"><h2>My Header</h2></div>
+            <div class="header2">GPA</div>
+  
+            <div class="content">table
+            <div class="footer"><footer></footer></div>
         </div>
-        <div name="gpa" class="gpa">
-            <article>
-                GPA - 3.0
-            </article>
-        </section>
-        <section name="container" class="container">
-            <table>
-                
-            </table>
-        </section>
-        <footer>footer</footer>
+
     </body>
 </html>
