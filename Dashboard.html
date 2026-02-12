@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <style>
+    * {
+        background-color: #EFEAE6;
+    }
+.container {
+  display: grid;
+  grid-template-areas:
+    "menu menu"
+    "header1 header2"
+    "content content"
+    "footer footer";
+  grid-template-columns: 3fr 1fr;
+  gap: 3px;
+  padding: 5px;
+}
+.container div {
+  background-color: white;
+  padding: 10px;
+}
+.container div.header1 {
+  grid-area: header1;
+  text-align: center;
+}
+.container div.header2 {
+  grid-area: header2;
+  text-align: center;
+}
+.container div.menu {
+  grid-area: menu;
+}
+.container div.content {
+  grid-area: content;
+}
+.container div.footer {
+  grid-area: footer;
+  text-align: center;  
+}
+</style>
+
+</head>
+<body>
+    <div class="container">
+            <div class="menu">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+    <h1>Header</h1>
+   
+    <div class="header1"><h2>Dashboard</h2>
+        <select name="In Progress" id="In Progress" size="1">
+            <option>In progress</option>
+            <option>Future</option>
+            <option>Past</option>
+        </select>
+        <form>
+        <label for="search">"Name:"</label>
+        <input type="text" id="search">
+        </form>
+
+        <div class="header1"><h2>My Header</h2></div>
+            <div class="header2">GPA</div>
+
+            <div class="content"><h3>Lorem Ipsum</h3>
+            <div class="footer"><h4>Footer</h4></div>
+ 
+
+    </div>
+   
+    
+</body>
+</html>
