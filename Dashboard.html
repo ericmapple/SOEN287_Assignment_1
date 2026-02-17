@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<style>
+    /* Reset and base styling */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background-color: #EFEAE6;
+        color: #333;
+        line-height: 1.5;
+    }
+
+    a {
+        text-decoration: none;
+        color: #333;
+        margin-right: 15px;
+    }
+
+    a:hover {
+        color: #0077cc;
+    }
+
+    /* Container Grid */
+    .container {
+        display: grid;
+        grid-template-areas:
+            "menu header"
+            "menu content"
+            "menu content2"
+            "menu footer";
+        grid-template-columns: 220px 1fr;
+        gap: 15px;
+        padding: 20px;
+        min-height: 100vh;
+    }
+
+    /* Menu */
+    .menu {
+        grid-area: menu;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .menu h2 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: black;
+    }
+
+    /* Header */
+    .header {
+        grid-area: header;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-left h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #222;
+    }
+
+    .header-left select,
+    .header-left input {
+        margin-right: 10px;
+        padding: 5px 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    /* Timeline Content */
+    .content {
+        grid-area: content;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    .content h2 {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+        color: #222;
+    }
+
+    /* Class Cards Grid */
+    .class-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 20px;
+    }
+
+    .class-card {
+        background-color: rgb(118, 114, 125);
+        color: black;
+        height: 100px;
+        width: 250px;
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: transform 0.2s, background-color 0.2s;
+        cursor: pointer;
+    }
+
+    .class-card:hover {
+        transform: scale(1.05);
+        background-color: #005fa3;
+    }
+
+    /* Calendar Content */
+    .content2 {
+        grid-area: content2;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    .content2 h3 {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+        color: #222;
+    }
+
+    /* Footer */
+    .footer {
+        grid-area: footer;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        text-align: left;
+        margin-top: 10px;
+    }
+
+    .footer h4 {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+        color: #555;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
+            <h2>Menu</h2>
+            <a href="#">Home</a>
+            <a href="#">Profile</a>
+            <a href="#">Message</a>
+            <a href="#">Dashboard</a>
+            <a href="#">My Courses</a>
+            <a href="#">Grades</a>            
+            <a href="#">Academic</a>
+            <a href="#">Help</a>
+            <a href="#">Log out</a>
+        </div>
+
+        <div class="header">
+            <div class="header-left">
+                <h1>Dashboard</h1>
+              <div class="class-cards">
+                <div class="class-card">Math 101</div>
+                <div class="class-card">History 202</div>
+                <div class="class-card">Physics 303</div>
+                <div class="class-card">English 404</div>
+              </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2>Timeline</h2>
+            <p></p>
+        </div>
+
+        <div class="content2">
+            <h3>Calendar</h3>
+            <p></p>
+        </div>
+
+        <div class="footer">
+            <h4>Footer</h4>
+            <p>&copy; 2026 Dashboard</p>
+        </div>
+    </div>
+</body>
+</html>
