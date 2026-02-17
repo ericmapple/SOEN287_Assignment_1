@@ -6,56 +6,110 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     
         <style>
-            * {
-               background-color: #EFEAE6;
-            }
         .container {
         display: grid;
         grid-template-areas:
-            "menu menu"
-            "header1 header2"
-            "content content"
-            "footer footer";
-        grid-template-columns: 80% 20%;
-        background-color:#2D5652;
+            "menu header1 header2"
+            "menu content content"
+            "menu footer footer";
+        grid-template-columns: 20% 70% 10%;
+        background-color:#EFEAE6;
         gap: 3px;
         padding: 5px;
         }
+
         .container div {
         padding: 10px;
+        background-color: white;
+        border-radius: 15px;
         }
+
         .container div.header1 {
         grid-area: header1;
-        text-align: center;
+        display: flex;
+        justify-content: center;   
+        align-items: center; 
         }
+
         .container div.header2 {
         grid-area: header2;
-        text-align: center;
+        display: flex;
+        justify-content: center;   
+        align-items: center; 
         }
+
         .container div.menu {
         grid-area: menu;
         }
         .container div.content {
         grid-area: content;
         }
+
         .container div.footer {
         grid-area: footer;
         text-align: center;  
         }
+
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        }
+
+        th, td {
+        border: 1px solid lightslategray;
+        }
+
         </style>
     </head>
     <body>
         <div class="container">
             <div class="menu">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                Menu insert here
             </div>
-            <div class="header1"><h2>My Header</h2></div>
-            <div class="header2">GPA</div>
+            <div class="header1"><h2>GRADES  - FirstName LastName [StudentID]</h2></div>
+            <div class="header2">GPA <br> 3.00</div>
   
-            <div class="content">table
-            <div class="footer"><footer></footer></div>
+            <div class="content">
+                <table>
+                <colgroup>
+                <col style="width: 35%">
+                <col style="width: 35%">
+                <col style="width: 15%">
+                <col style="width: 15%">
+                </colgroup>
+
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Evaluation Type</th>
+                        <th>Class Average</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ECON 201 - C</td>
+                        <td>Midterm Exam</td>
+                        <td>61%</td>
+                        <td>84%</td>
+                    </tr>
+                    <tr>
+                        <td>MATH 205 - F</td>
+                        <td>Assignment 1</td>
+                        <td>80%</td>
+                        <td>67%</td>
+                    </tr>
+                    <tr>
+                        <td>SOEN287 - S</td>
+                        <td>Assignment 1</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                    </tr>
+                </tbody>
+                </table>
+            <div class="footer"><footer>footer</footer></div>
         </div>
 
     </body>
