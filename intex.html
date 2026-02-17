@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOEN 287</title>
+    <title>SOEN 287 Login Page</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <p>Hello World!</p>
+    
+    <div id="login-container">
+        <div>
+            <h1>Login</h1>
+        </div>
+        <form action="sumbit.js" method="post">
+            
+            <div id="email-section">
+                <label for="email">Email: </label>
+                <input type="email" id="email">
+            </div>
+
+                    <br>
+
+            <div id="password-section">
+                <label for="password">Password: </label>
+                <input type="password" id="password">
+            </div>
+
+                    <br>
+
+            <button type="submit">Log in</button>
+
+        </form>
+    </div>
 </body>
 </html>
