@@ -11,11 +11,13 @@
         grid-template-areas:
             "menu header1 header2"
             "menu content content"
-            "menu footer footer";
+            "footer footer footer";
         grid-template-columns: 20% 70% 10%;
         background-color:#EFEAE6;
         gap: 3px;
         padding: 5px;
+        min-height: 100vh;
+        grid-template-rows: auto 1fr auto;
         }
 
         .container div {
@@ -44,20 +46,37 @@
         .container div.content {
         grid-area: content;
         }
+        .toggle {
+        float: right;
+        color: cadetblue;
+        cursor: pointer;
+        margin-right: 5px;
+        }
 
         .container div.footer {
         grid-area: footer;
         text-align: center;  
         }
 
+        .container div.econ{
+            background-color: rgb(220, 240, 245);
+        }
         table {
+        background-color: aliceblue;
         width: 100%;
         border-collapse: collapse;
         table-layout: fixed;
         }
 
-        th, td {
+        th,td {
         border: 1px solid lightslategray;
+        }
+
+        .container div.course-header {
+        background-color: rgb(159, 204, 232);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         }
 
         </style>
@@ -68,48 +87,69 @@
                 Menu insert here
             </div>
             <div class="header1"><h2>GRADES  - FirstName LastName [StudentID]</h2></div>
-            <div class="header2">GPA <br> 3.00</div>
-  
+            <div class="header2">GPA <br> 2.84</div>
+                    
             <div class="content">
-                <table>
-                <colgroup>
-                <col style="width: 35%">
-                <col style="width: 35%">
-                <col style="width: 15%">
-                <col style="width: 15%">
-                </colgroup>
+                <div class="econ">
+                    <div class="course-header">
+                    <h3>ECON 201 - C</h3>
+                    <progress id="file" value="32" max="100" style="width:200px; height:20px"></progress>
+                    </div>
 
-                <thead>
-                    <tr>
-                        <th>Course</th>
-                        <th>Evaluation Type</th>
-                        <th>Class Average</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>ECON 201 - C</td>
-                        <td>Midterm Exam</td>
-                        <td>61%</td>
-                        <td>84%</td>
-                    </tr>
-                    <tr>
-                        <td>MATH 205 - F</td>
-                        <td>Assignment 1</td>
-                        <td>80%</td>
-                        <td>67%</td>
-                    </tr>
-                    <tr>
-                        <td>SOEN287 - S</td>
-                        <td>Assignment 1</td>
-                        <td>-</td>
-                        <td>-</td>
+                    <table>
+                        <colgroup>
+                            <col style="width: 45%">
+                            <col style="width: 15%">
+                            <col style="width: 15%">
+                            <col style="width: 25%">
+                        </colgroup>
 
-                    </tr>
-                </tbody>
-                </table>
-            <div class="footer"><footer>footer</footer></div>
+                        <thead>
+                            <tr>
+                                <th>Assessment/Evaluation</th>
+                                <th>Class Average</th>
+                                <th>Score</th>
+                                <th>Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Assignment 1</td>
+                                <td>6.5/10</td>
+                                <td>10/10</td>
+                                <td>
+                                    <progress id="file" value="100" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Assignment 1</td>
+                                <td>-/10</td>
+                                <td>-/10</td>
+                                <td>
+                                    <progress id="file" value="80" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Assignment 3</td>
+                                <td>-/10</td>
+                                <td>-/10</td>
+                                <td>
+                                    <progress id="file" value="27" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Group Project</td>
+                                <td> -/25</td>
+                                <td>-/25</td>
+                                <td>
+                                    <progress id="file" value="46" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                <div class="footer"><footer>footer</footer></div>
         </div>
 
     </body>
