@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>css nav thing</title>
+        <title>Student - grades</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -58,11 +58,11 @@
         text-align: center;  
         }
 
-        .container div.econ{
-            background-color: rgb(220, 240, 245);
+        .container div.course{
+            background-color:grey;
+            margin: 5px auto;
         }
         table {
-        background-color: aliceblue;
         width: 100%;
         border-collapse: collapse;
         table-layout: fixed;
@@ -73,7 +73,7 @@
         }
 
         .container div.course-header {
-        background-color: rgb(159, 204, 232);
+        background-color: white;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -90,13 +90,135 @@
             <div class="header2">GPA <br> 2.84</div>
                     
             <div class="content">
-                <div class="econ">
-                    <div class="course-header">
-                    <h3>ECON 201 - C</h3>
+
+                <!-- CLASS 1 -->
+                <div class="course" style="background-color: rgb(223, 235, 245);">
+                    <div class="course-header" style="background-color: lightblue;">
+                    <h3>Class 1</h3>
                     <progress id="file" value="32" max="100" style="width:200px; height:20px"></progress>
                     </div>
 
-                    <table>
+                    <table style="background-color: aliceblue;">
+                        <colgroup>
+                            <col style="width: 45%">
+                            <col style="width: 15%">
+                            <col style="width: 15%">
+                            <col style="width: 25%">
+                        </colgroup>
+
+                        <thead>
+                            <tr>
+                                <th>Assessment/Evaluation</th>
+                                <th>Class Average</th>
+                                <th>Score</th>
+                                <th>Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Assignment 1</td>
+                                <td>6.5/10</td>
+                                <td>10/10</td>
+                                <td>
+                                    <progress id="file" value="100" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Assignment 1</td>
+                                <td>-/10</td>
+                                <td>-/10</td>
+                                <td>
+                                    <progress id="file" value="80" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Assignment 3</td>
+                                <td>-/10</td>
+                                <td>-/10</td>
+                                <td>
+                                    <progress id="file" value="27" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Group Project</td>
+                                <td> -/25</td>
+                                <td>-/25</td>
+                                <td>
+                                    <progress id="file" value="46" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- CLASS 2 -->
+                <div class="course" style="background-color: beige;">
+                    <div class="course-header" style="background-color: rgb(221, 225, 138);">
+                    <h3>Class 2</h3>
+                    <progress id="file" value="32" max="100" style="width:200px; height:20px"></progress>
+                    </div>
+
+                    <table style="background-color:rgb(247, 247, 233);">
+                        <colgroup>
+                            <col style="width: 45%">
+                            <col style="width: 15%">
+                            <col style="width: 15%">
+                            <col style="width: 25%">
+                        </colgroup>
+
+                        <thead>
+                            <tr>
+                                <th>Assessment/Evaluation</th>
+                                <th>Class Average</th>
+                                <th>Score</th>
+                                <th>Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Assignment 1</td>
+                                <td>6.5/10</td>
+                                <td>10/10</td>
+                                <td>
+                                    <progress id="file" value="100" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Assignment 1</td>
+                                <td>-/10</td>
+                                <td>-/10</td>
+                                <td>
+                                    <progress id="file" value="80" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Assignment 3</td>
+                                <td>-/10</td>
+                                <td>-/10</td>
+                                <td>
+                                    <progress id="file" value="27" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Group Project</td>
+                                <td> -/25</td>
+                                <td>-/25</td>
+                                <td>
+                                    <progress id="file" value="46" max="100" style="width:145px; height:20px;"></progress>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- CLASS 3 -->
+                <div class="course" style="background-color: rgb(245, 228, 220);">
+                    <div class="course-header" style="background-color: rgb(225, 158, 138);">
+                    <h3>Class 3</h3>
+                    <progress id="file" value="32" max="100" style="width:200px; height:20px"></progress>
+                    </div>
+
+                    <table style="background-color:rgb(247, 237, 233);">
                         <colgroup>
                             <col style="width: 45%">
                             <col style="width: 15%">
