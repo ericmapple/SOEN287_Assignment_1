@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student - personal page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <style>
+        .container {
+        display: grid;
+        grid-template-areas:
+            "menu header1 header2"
+            "menu content content"
+            "footer footer footer";
+        grid-template-columns: 20% 70% 10%;
+        background-color:#fef8f4;
+        gap: 3px;
+        padding: 5px;
+        min-height: 100vh;
+        grid-template-rows: auto 1fr auto;
+        }
+
+        .container div {
+        padding: 10px;
+        background-color: hsl(180, 9%, 93%);
+        border-radius: 15px;
+        }
+
+        .container div.header1 {
+        grid-area: header1;
+        display: flex;
+        justify-content: center;   
+        align-items: center; 
+        }
+
+        .container div.header2 {
+        grid-area: header2;
+        display: flex;
+        justify-content: center;   
+        align-items: center; 
+        }
+
+        .container div.menu {
+        grid-area: menu;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        }
+        .container div.content {
+        grid-area: content;
+        }
+        
+
+        .container div.footer {
+        grid-area: footer;
+        text-align: center;  
+        }
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="menu">
+            <h2>Hello, FirstName!</h2>
+            <a href="#">Home</a>
+            <a href="#">Profile</a>
+            <a href="#">Message</a>
+            <a href="#">Dashboard</a>
+            <a href="#">My Courses</a>
+            <a href="#">Grades</a>         
+            <a href="#">Academic</a>
+            <a href="#">Help</a>
+            <a href="#">Log out</a>
+            </div>
+            <div class="header1"><h2>FirstName LastName [StudentID]</h2></div>
+            <div class="header2">picture?</div>
+                    
+            <div class="content"></div>
+                <div class="footer"><footer>footer</footer></div>
+        </div>
+
+    </body>
+</html>
