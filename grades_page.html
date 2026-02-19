@@ -13,7 +13,7 @@
             "menu content content"
             "footer footer footer";
         grid-template-columns: 20% 70% 10%;
-        background-color:#EFEAE6;
+        background-color:#fef8f4;
         gap: 3px;
         padding: 5px;
         min-height: 100vh;
@@ -22,7 +22,7 @@
 
         .container div {
         padding: 10px;
-        background-color: white;
+        background-color: hsl(180, 9%, 93%);
         border-radius: 15px;
         }
 
@@ -42,6 +42,11 @@
 
         .container div.menu {
         grid-area: menu;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         }
         .container div.content {
         grid-area: content;
@@ -84,7 +89,16 @@
     <body>
         <div class="container">
             <div class="menu">
-                Menu insert here
+            <h2>Menu</h2>
+            <a href="#">Home</a>
+            <a href="#">Profile</a>
+            <a href="#">Message</a>
+            <a href="#">Dashboard</a>
+            <a href="#">My Courses</a>
+            <a href="#">Grades</a>            
+            <a href="#">Academic</a>
+            <a href="#">Help</a>
+            <a href="#">Log out</a>
             </div>
             <div class="header1"><h2>GRADES  - FirstName LastName [StudentID]</h2></div>
             <div class="header2">GPA <br> 2.84</div>
