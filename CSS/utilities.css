@@ -1,0 +1,11 @@
+/* Text alignment helpers */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* Margin / padding shortcuts */
+.mb-1 { margin-bottom: 1rem; }
+.mt-1 { margin-top: 1rem; }
+
+/* Colors */
+.text-primary { color: #0077cc; }
+.bg-light { background-color: #f4f4f4; }
