@@ -1,25 +1,124 @@
-/* Class Cards Grid */
+/* Class Cards Container */
 .class-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 20px;
+    display: flex;
+    flex-wrap: wrap; /* allow cards to wrap if needed */
+    gap: 20px;       /* space between cards */
+    margin-top: 10px;
 }
 
+/* Each class card */
 .class-card {
     background-color: rgb(118, 114, 125);
-    color: black;
-    height: 100px;
-    width: 250px;
-    border-radius: 10px;
-    padding: 10px;
+    color: white;
+    height: 200px;      /* double the original height */
+    width: 480px;       /* double the original width */
+    border-radius: 15px;
+    padding: 20px;
     display: flex;
-    font-size: 1rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;  /* bigger text */
     font-weight: bold;
     transition: transform 0.2s, background-color 0.2s;
     cursor: pointer;
 }
 
+/* Hover effect */
 .class-card:hover {
     transform: scale(1.05);
     background-color: #005fa3;
+}
+
+
+/* Timeline container */
+.timeline {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* vertical space between assignments */
+}
+
+/* Each timeline item */
+.timeline-item {
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-start; /* align items from left */
+    align-items: center;
+}
+
+/* Due date */
+.timeline-item .due-date {
+    font-weight: bold;
+    margin-right: 15px; /* space between due date and assignment */
+}
+
+/* Assignment name */
+.timeline-item .assignment {
+    flex: 2; /* take some space */
+    margin-right: 15px; /* space between assignment and class name */
+}
+
+/* Class name */
+.timeline-item .class-name {
+    flex: 1; /* smaller space for class name */
+    font-style: italic;
+    color: #555;
+    margin-right: 25px; /* <- add space between class name and submit button */
+}
+
+/* Submit button */
+.submit-btn {
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #005fa3;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 columns = Sun-Sat */
+    gap: 10px; /* space between days */
+    margin-top: 10px;
+}
+
+.calendar-day {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    font-size: 0.9rem;
+}
+
+/* Weekday header */
+.calendar-day.header {
+    font-weight: bold;
+    text-align: center;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* Events inside a day */
+.calendar-day .event {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    background-color: #0077cc;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+    display: inline-block;
 }
