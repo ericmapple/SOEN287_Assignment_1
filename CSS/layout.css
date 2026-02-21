@@ -1,0 +1,101 @@
+/* Container Grid */
+.container {
+    display: grid;
+    grid-template-areas:
+        "menu header"
+        "menu content"
+        "menu content2"
+        "menu footer";
+    grid-template-columns: 220px 1fr;
+    gap: 15px;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Menu */
+.menu {
+    grid-area: menu;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu h2 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: black;
+}
+
+/* Header */
+.header {
+    grid-area: header;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.header-left select,
+.header-left input {
+    margin-right: 10px;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Timeline Content */
+.content {
+    grid-area: content;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.content h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+/* Calendar Content */
+.content2 {
+    grid-area: content2;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.content2 h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+/* Footer */
+.footer {
+    grid-area: footer;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.footer h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #555;
+}
