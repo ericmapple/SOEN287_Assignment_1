@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student - personal page</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      .container {
+        display: grid;
+        grid-template-areas:
+          "menu header1 header2"
+          "menu content content"
+          "footer footer footer";
+        grid-template-columns: 20% 70% 10%;
+        background-color: #fef8f4;
+        gap: 3px;
+        padding: 5px;
+        min-height: 100vh;
+        grid-template-rows: auto 1fr auto;
+      }
+
+      .container div {
+        padding: 10px;
+        background-color: hsl(180, 9%, 93%);
+        border-radius: 15px;
+      }
+
+      .header1 {
+        grid-area: header1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .header2 {
+        grid-area: header2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .menu {
+        grid-area: menu;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .content {
+        grid-area: content;
+      }
+
+      .footer {
+        grid-area: footer;
+        text-align: center;
+      }
+
+      /* Simple content styling */
+      .section {
+        background-color: white;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+
+      .section h3 {
+        margin-top: 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      td {
+        padding: 6px;
+        vertical-align: top;
+      }
+
+      .label {
+        width: 160px;
+        font-weight: bold;
+      }
+
+      .chips span {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: #e9f3f2;
+        margin: 4px 6px 0 0;
+        font-size: 14px;
+      }
+
+      .chart-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .chart-row img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        background: #fff;
+      }
+
+      @media (max-width: 900px) {
+        .container {
+          grid-template-areas:
+            "header1"
+            "header2"
+            "menu"
+            "content"
+            "footer";
+          grid-template-columns: 1fr;
+        }
+
+        .chart-row {
+          grid-template-columns: 1fr;
+        }
+
+        .label {
+          width: 120px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- LEFT MENU -->
+      <div class="menu">
+        <h2>Hello, FirstName!</h2>
+        <a href="#">Home</a>
+        <a href="studentProfile.html">Profile</a>
+        <a href="#">Messages</a>
+        <a href="Dashboard.html">Dashboard</a>
+        <a href="#">My Courses</a>
+        <a href="grades.html">Grades</a>
+        <a href="#">Academic</a>
+        <a href="#">Help</a>
+        <a href="intex.html">Log out</a>
+      </div>
+
+      <!-- HEADER -->
+      <div class="header1">
+        <h2>FirstName LastName (StudentID)</h2>
+      </div>
+      <div class="header2">
+        <!-- simplest: image or placeholder -->
+        <div>
+          <strong>Photo</strong><br />
+          <small>(optional)</small>
+        </div>
+        <!-- If you want an image:
+        <img src="student_photo.png" alt="Student photo" style="max-width:100%; border-radius:10px;">
+        -->
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="content">
+        <div class="section">
+          <h3>Personal Information</h3>
+          <table>
+            <tr>
+              <td class="label">Full name</td>
+              <td>FirstName LastName</td>
+            </tr>
+            <tr>
+              <td class="label">Student ID</td>
+              <td>00000000</td>
+            </tr>
+            <tr>
+              <td class="label">Email</td>
+              <td>firstname.lastname@email.com</td>
+            </tr>
+            <tr>
+              <td class="label">Program</td>
+              <td>Program name</td>
+            </tr>
+            <tr>
+              <td class="label">Year</td>
+              <td>Year 1</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="section">
+          <h3>About Me</h3>
+          <p>
+            Write 2–4 lines about the student (interests, goals, etc.). Keep it short and simple.
+          </p>
+        </div>
+
+        <div class="section">
+          <h3>Current Courses</h3>
+          <div class="chips">
+            <span>COMP 249</span>
+            <span>COMP 2XX</span>
+            <span>MATH 2XX</span>
+            <span>Other course</span>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="grades.html">View my grades</a></li>
+            <li><a href="Dashboard.html">Go to dashboard</a></li>
+            <li><a href="#">Contact a teacher</a></li>
+          </ul>
+        </div>
+
+        <!-- OPTIONAL: If you want to show the generated charts on the student page -->
+        <div class="section">
+          <h3>My Trip Charts (optional)</h3>
+          <p>
+            If your project uses the generated charts, place the PNGs in the same folder as this HTML file.
+          </p>
+
+          <div class="chart-row">
+            <img src="trip_cost_bar_chart.png" alt="Trip costs bar chart" />
+            <img src="trip_duration_line_chart.png" alt="Trip duration line chart" />
+          </div>
+          <br />
+          <img src="trips_per_destination_pie.png" alt="Trips per destination pie chart" />
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <footer>COMP Project • Student Page</footer>
+      </div>
+    </div>
+  </body>
+</html>
