@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student - grades</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <style>
+        .container {
+        display: grid;
+        grid-template-areas:
+            "menu header1 header2"
+            "menu content content"
+            "footer footer footer";
+        grid-template-columns: 20% 70% 10%;
+        background-color:#fef8f4;
+        gap: 3px;
+        padding: 5px;
+        min-height: 100vh;
+        grid-template-rows: auto 1fr auto;
+        }
+
+        .container div {
+        padding: 10px;
+        background-color: hsl(180, 9%, 93%);
+        border-radius: 15px;
+        }
+
+        .container div.header1 {
+        grid-area: header1;
+        display: flex;
+        justify-content: center;   
+        align-items: center; 
+        }
+
+        .container div.header2 {
+        grid-area: header2;
+        display: flex;
+        justify-content: center;   
+        align-items: center; 
+        }
+
+        .container div.menu {
+        grid-area: menu;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        }
+        .container div.content {
+        grid-area: content;
+        }
+
+        .container div.footer {
+        grid-area: footer;
+        text-align: center;  
+        }
+
+        .container div.course{
+            background-color:grey;
+            margin: 5px auto;
+        }
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        margin: 2px;
+        }
+
+        th,td {
+        border: 1px solid lightslategray;
+        }
+
+        .container div.course-header {
+        background-color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="menu">
+            <h2>Hello, FirstName!</h2>
+            <a href="#">Home</a>
+            <a href="#">Profile</a>
+            <a href="#">Message</a>
+            <a href="#">Dashboard</a>
+            <a href="#">My Courses</a>
+            <a href="#">Grades</a>
+            <ul style="list-style-type: circle;">
+                <li><a href="#">Add New Assessment</a></li>
+                <li><a href="#">Modify Assessment</a></li>
+            </ul>
+            <a href="#">Academic</a>
+            <a href="#">Help</a>
+            <a href="#">Log out</a>
+            </div>
+            <div class="header1" style="background-color: lightblue;"><h2>GRADES - Class 1</h2></div>
+            <div class="header2">AVG<br> 100% </div>
+                    
+            <div class="content">
+
+                <!-- Overall -->
+                <div class="course" style="background-color: rgb(223, 235, 245);">
+                    <div class="course-header" style="background-color: lightblue;">
+                    <h3>Student Details</h3>
+                    <p>Average Score: 100%</p>
+                    </div>
+                    
+                    <table style="background-color: aliceblue; margin-bottom: 5px;">
+                        <colgroup>
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 15%">
+                            <col style="width: 15%">
+                        </colgroup>
+
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Student ID</th>
+                                <th>Score</th>
+                                <th>GPA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td>1234567</td>
+                                <td>-/10</td>
+                                <td>3.00</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>1234567</td>
+                                <td>-/10</td>
+                                <td>3.00</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>1234567</td>
+                                <td>-/10</td>
+                                <td>3.00</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>1234567</td>
+                                <td> -/10</td>
+                                <td>3.00</td>
+                            </tr>
+                            <tr>
+                                <td>...</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td>...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="course-header" style="background-color: lightblue;">
+                    <h4>Assignment 1</h4>
+                    <p>Average Score: 100%</p>
+                    </div>
+                    <table style="background-color: aliceblue; margin-bottom: 5px;">
+                        <colgroup>
+                            <col style="width: 25%">
+                            <col style="width: 25%">
+                            <col style="width: 15%">
+                            <col style="width: 15%">
+                        </colgroup>
+
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Student ID</th>
+                                <th>Score</th>
+                                <th>GPA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td>1234567</td>
+                                <td>-/10</td>
+                                <td>3.00</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>1234567</td>
+                                <td>-/10</td>
+                                <td>3.00</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>1234567</td>
+                                <td>-/10</td>
+                                <td>3.00</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>1234567</td>
+                                <td> -/10</td>
+                                <td>3.00</td>
+                            </tr>
+                            <tr>
+                                <td>...</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td>...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4> ....[more assessments/evaluations would be here]</h4>
+                </div>
+
+            </div>
+                <div class="footer"><footer>footer</footer></div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Teacher - personal page</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      .container {
+        display: grid;
+        grid-template-areas:
+          "menu header1 header2"
+          "menu content content"
+          "footer footer footer";
+        grid-template-columns: 20% 70% 10%;
+        background-color: #fef8f4;
+        gap: 3px;
+        padding: 5px;
+        min-height: 100vh;
+        grid-template-rows: auto 1fr auto;
+      }
+
+      .container div {
+        padding: 10px;
+        background-color: hsl(180, 9%, 93%);
+        border-radius: 15px;
+      }
+
+      .header1 {
+        grid-area: header1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .header2 {
+        grid-area: header2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .menu {
+        grid-area: menu;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .content {
+        grid-area: content;
+      }
+
+      .footer {
+        grid-area: footer;
+        text-align: center;
+      }
+
+      .section {
+        background-color: white;
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+
+      .section h3 {
+        margin-top: 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      td {
+        padding: 6px;
+        vertical-align: top;
+      }
+
+      .label {
+        width: 180px;
+        font-weight: bold;
+      }
+
+      .course-list li {
+        margin-bottom: 6px;
+      }
+
+      @media (max-width: 900px) {
+        .container {
+          grid-template-areas:
+            "header1"
+            "header2"
+            "menu"
+            "content"
+            "footer";
+          grid-template-columns: 1fr;
+        }
+
+        .label {
+          width: 130px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- LEFT MENU -->
+      <div class="menu">
+        <h2>Hello, ProfName!</h2>
+        <a href="#">Home</a>
+        <a href="teacherProfile.html">Profile</a>
+        <a href="#">Messages</a>
+        <a href="Dashboard.html">Dashboard</a>
+        <a href="#">My Courses</a>
+        <a href="gradesTeacher.html">Grades (Teacher)</a>
+        <a href="#">Help</a>
+        <a href="intex.html">Log out</a>
+      </div>
+
+      <!-- HEADER -->
+      <div class="header1">
+        <h2>Prof. FirstName LastName (TeacherID)</h2>
+      </div>
+      <div class="header2">
+        <div>
+          <strong>Photo</strong><br />
+          <small>(optional)</small>
+        </div>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="content">
+        <div class="section">
+          <h3>Teacher Information</h3>
+          <table>
+            <tr>
+              <td class="label">Full name</td>
+              <td>Prof. FirstName LastName</td>
+            </tr>
+            <tr>
+              <td class="label">Teacher ID</td>
+              <td>T0000</td>
+            </tr>
+            <tr>
+              <td class="label">Email</td>
+              <td>prof.lastname@email.com</td>
+            </tr>
+            <tr>
+              <td class="label">Office</td>
+              <td>Room X-000</td>
+            </tr>
+            <tr>
+              <td class="label">Office hours</td>
+              <td>Mon 2–4pm, Thu 10–11am (example)</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="section">
+          <h3>About</h3>
+          <p>
+            2–4 lines: teaching interests, research topics, what students should know, etc.
+          </p>
+        </div>
+
+        <div class="section">
+          <h3>Courses Taught</h3>
+          <ul class="course-list">
+            <li><strong>COMP 249</strong> — Object-Oriented Programming II</li>
+            <li><strong>COMP 2XX</strong> — Another course</li>
+            <li><strong>COMP 3XX</strong> — Another course</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3>Quick Actions</h3>
+          <ul>
+            <li><a href="gradesTeacher.html">Manage grades</a></li>
+            <li><a href="#">Send a message to students</a></li>
+            <li><a href="Dashboard.html">Go to dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <footer>COMP Project • Teacher Page</footer>
+      </div>
+    </div>
+  </body>
+</html>

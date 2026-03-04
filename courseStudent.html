@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Student - personal page</title>
+        <title>Student - grades</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -51,11 +51,32 @@
         .container div.content {
         grid-area: content;
         }
-        
 
         .container div.footer {
         grid-area: footer;
         text-align: center;  
+        }
+
+        .container div.course{
+            background-color:grey;
+            margin: 5px auto;
+        }
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        margin: 2px;
+        }
+
+        th,td {
+        border: 1px solid lightslategray;
+        }
+
+        .container div.course-header {
+        background-color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         }
 
         </style>
@@ -69,15 +90,23 @@
             <a href="#">Message</a>
             <a href="#">Dashboard</a>
             <a href="#">My Courses</a>
-            <a href="#">Grades</a>         
+            <a href="#">Grades</a>
             <a href="#">Academic</a>
             <a href="#">Help</a>
             <a href="#">Log out</a>
             </div>
-            <div class="header1"><h2>FirstName LastName [StudentID]</h2></div>
-            <div class="header2">picture?</div>
+            <div class="header1" style="background-color: lightblue;"><h2>GRADES - Class 1</h2></div>
+            <div class="header2">AVG<br> 100% </div>
                     
-            <div class="content"></div>
+            <div class="content">
+
+                <!-- Overall -->
+                <div class="course" style="background-color: rgb(223, 235, 245);">
+                    <div class="course-header" style="background-color: lightblue;">
+                    
+                </div>
+
+            </div>
                 <div class="footer"><footer>footer</footer></div>
         </div>
 
