@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOEN 287 Login Page</title>
-    <link rel="stylesheet" href="styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>SOEN 287 Login Page</title>
+	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
-    <div id="login-container">
-        <div>
-            <h1>Login</h1>
-        </div>
-        <form action="sumbit.js" method="post">
-            
-            <div id="email-section">
-                <label for="email">Email: </label>
-                <input type="email" id="email">
-            </div>
 
-                    <br>
+	<div id="login-container">
+		<h1>Login</h1>
 
-            <div id="password-section">
-                <label for="password">Password: </label>
-                <input type="password" id="password">
-            </div>
+		<form id="login-form" action="#">
+			<div>
+				<label for="email">Email:</label>
+				<input type="email" id="email" required>
+			</div>
 
-                    <br>
+			<br>
 
-            <button type="submit">Log in</button>
+			<div>
+				<label for="password">Password:</label>
+				<input type="password" id="password" required>
+			</div>
 
-        </form>
-    </div>
+			<br>
+
+			<button type="submit">Log in</button>
+
+			<p id="message"></p>
+		</form>
+	</div>
+
+	<script src="submit.js"></script>
 </body>
 </html>
