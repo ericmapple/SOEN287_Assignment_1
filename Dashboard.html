@@ -29,7 +29,7 @@
         color: #0077cc;
     }
 
-    /* Container Grid */
+    /* Grid Layout/Page Structure */
     .container {
         display: grid;
         grid-template-areas:
@@ -38,12 +38,12 @@
             "menu content2"
             "menu footer";
         grid-template-columns: 220px 1fr;
-        gap: 15px;
-        padding: 20px;
+        gap: 10px;
+        padding: 10px;
         min-height: 100vh;
     }
 
-    /* Menu */
+    /* Menu/SideBar */
     .menu {
         grid-area: menu;
         background-color: #fff;
@@ -52,37 +52,28 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        height: 100%;
     }
 
     .menu h2 {
         font-size: 1.4rem;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
         color: black;
     }
 
-    /* Header */
+    /* Header/Dashboard */
     .header {
         grid-area: header;
         background-color: #fff;
         padding: 20px;
         border-radius: 10px;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
     }
 
     .header-left h1 {
         font-size: 2rem;
         margin-bottom: 10px;
         color: #222;
-    }
-
-    .header-left select,
-    .header-left input {
-        margin-right: 10px;
-        padding: 5px 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
     }
 
     /* Timeline Content */
@@ -92,11 +83,12 @@
         padding: 20px;
         border-radius: 10px;
         margin-top: 10px;
+        height: 100%;
     }
 
     .content h2 {
         font-size: 1.6rem;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         color: #222;
     }
 
@@ -104,9 +96,9 @@
     .class-cards {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 20px;
+        gap: 15px;
     }
-
+    /* Individual Course Card */
     .class-card {
         background-color: rgb(118, 114, 125);
         color: black;
@@ -120,7 +112,7 @@
         transition: transform 0.2s, background-color 0.2s;
         cursor: pointer;
     }
-
+    /* Hover animation */
     .class-card:hover {
         transform: scale(1.05);
         background-color: #005fa3;
@@ -133,6 +125,12 @@
         padding: 20px;
         border-radius: 10px;
         margin-top: 10px;
+
+    }
+
+    .calendar {
+    display: grid; 
+    gap: 5px;
     }
 
     .content2 h3 {
@@ -160,8 +158,13 @@
 </style>
 </head>
 <body>
+
+    <!-- Main page Container-->
     <div class="container">
+
+        <!--Left Side Bar menu-->
         <div class="menu">
+            <h2>Hello,<br>FirstName!</h2>
             <h2>Menu</h2>
             <a href="#">Home</a>
             <a href="#">Profile</a>
@@ -173,27 +176,43 @@
             <a href="#">Help</a>
             <a href="#">Log out</a>
         </div>
-
+        <!-- Header/Dashboard Class-->
         <div class="header">
             <div class="header-left">
                 <h1>Dashboard</h1>
+                <h2>My Courses</h2>
               <div class="class-cards">
-                <div class="class-card">Math 101</div>
-                <div class="class-card">History 202</div>
-                <div class="class-card">Physics 303</div>
-                <div class="class-card">English 404</div>
+                <div class="class-card">COMP 248</div>
+                <div class="class-card">SOEN 287</div>
+                <div class="class-card">MATH 205</div>
+                <div class="class-card">ENGR 201</div>
               </div>
             </div>
         </div>
 
-        <div class="content">
+    <div class="content">
             <h2>Timeline</h2>
-            <p></p>
+    <div class="timeline">
+         <div class="timeline-event">
+            <span class="time">08:00 AM</span>
+            <p>COMP 248 Lecture</p>
+         </div>
+        
+    </div>
+    </div>
         </div>
 
         <div class="content2">
             <h3>Calendar</h3>
-            <p></p>
+            
+        <div>Monday</div><hr>
+        <div>Tuesday</div><hr>
+        <div>Wednesday</div><hr>
+        <div>Thursday</div><hr>
+        <div>Friday</div><hr>
+        <div>Saturday</div><hr>
+        <div>Sunday</div><hr>
+
         </div>
 
         <div class="footer">
