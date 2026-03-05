@@ -45,14 +45,13 @@
 
     /* Menu/SideBar */
     .menu {
-        grid-area: menu;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        height: 100%;
+    grid-area: menu;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
     }
 
     .menu h2 {
@@ -83,7 +82,8 @@
         padding: 20px;
         border-radius: 10px;
         margin-top: 10px;
-        height: 100%;
+        
+        
     }
 
     .content h2 {
@@ -94,9 +94,12 @@
 
     /* Class Cards Grid */
     .class-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);    
+    gap: 15px;
+    
+
     }
     /* Individual Course Card */
     .class-card {
@@ -120,17 +123,12 @@
 
     /* Calendar Content */
     .content2 {
-        grid-area: content2;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        margin-top: 10px;
 
-    }
-
-    .calendar {
-    display: grid; 
-    gap: 5px;
+    grid-area: content2;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 10px;
     }
 
     .content2 h3 {
@@ -186,6 +184,7 @@
                 <div class="class-card">SOEN 287</div>
                 <div class="class-card">MATH 205</div>
                 <div class="class-card">ENGR 201</div>
+                
               </div>
             </div>
         </div>
@@ -200,11 +199,10 @@
         
     </div>
     </div>
-        </div>
-
-        <div class="content2">
-            <h3>Calendar</h3>
-            
+        
+        
+     <div class="content2">
+            <h3>Calendar</h3> 
         <div>Monday</div><hr>
         <div>Tuesday</div><hr>
         <div>Wednesday</div><hr>
@@ -212,13 +210,12 @@
         <div>Friday</div><hr>
         <div>Saturday</div><hr>
         <div>Sunday</div><hr>
+     </div>
 
-        </div>
-
-        <div class="footer">
+    </div>
+            <div class="footer">
             <h4>Footer</h4>
             <p>&copy; 2026 Dashboard</p>
         </div>
-    </div>
 </body>
 </html>
