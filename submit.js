@@ -19,10 +19,10 @@ form.addEventListener("submit", function(event){
 
 
 	if(email === "student@concordia.ca"){
-		window.location.href = "#student";
+		window.location.href = "Personal Student Page.html";
 	}
 	else if(email === "teacher@concordia.ca"){
-		window.location.href = "#teacher";
+		window.location.href = "Personal Teacher Page.html";
 	}
 	else{
 		message.textContent = "Wrong email.";
