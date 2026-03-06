@@ -7,4 +7,5 @@ This website is a web-based Smart Course Companion that helps students organize 
 
 Student Features:
 - View Courses
-- 
+- View Grades
+- Track Grade Progress
