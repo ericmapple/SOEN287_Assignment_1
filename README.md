@@ -39,3 +39,5 @@ This website is a web-based Smart Course Companion that helps students organize 
 5. Team:
     - Eric Scherpereel 40315371
     - Karolina Urdenko 40319184
+    - Oliver Pilotin 40297499
+    - Paul-Louis DUBOULAIS 40311694
