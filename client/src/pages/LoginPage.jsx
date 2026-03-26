@@ -1,3 +1,7 @@
+import { Link } from "react-router-dom";
+
+import "../styles.css";
+
 function LoginPage(){
     return (
         <div id="login-container">
@@ -23,7 +27,7 @@ function LoginPage(){
                 <p id="message"></p>
             </form>
         </div>
-);
+)
 
 
 }

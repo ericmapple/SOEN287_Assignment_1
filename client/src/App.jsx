@@ -1,6 +1,7 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link } from "react-router-dom";
 
-// import pages
+import "./styles.css";
+
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import StudentCoursesPage from "./pages/StudentCoursesPage";
@@ -10,31 +11,33 @@ import TeacherCoursesPage from "./pages/TeacherCoursesPage";
 import TeacherGradesPage from "./pages/TeacherGradesPage";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
 
-function App(){
-    <div>
-        {/* Navigation */}
-        <nav>
-            <Link to="/">LoginPage</Link> |{" "}
-            <Link to="/dashboard">DashboardPage</Link>
-            <Link to="/student/courses">StudentCoursesPage</Link>
-            <Link to="/student/grades">StudentGradesPage</Link>
-            <Link to="/student/profile">StudentProfilePage</Link>
-            <Link to="/teacher/courses">TeacherCoursesPage</Link>
-            <Link to="/teacher/grades">TeacherGradesPage</Link>
-            <Link to="/teacher/profile">TeacherProfilePage</Link>
-        </nav>
+function App() {
+  return (
 
-       {/* Routing */}
-        <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/student/courses" element={<StudentCoursesPage />} />
-            <Route path="/student/grades" element={<StudentGradesPage />} />
-            <Route path="/student/profile" element={<StudentProfilePage />} />
-            <Route path="/teacher/courses" element={<TeacherCoursesPage />} />
-            <Route path="/teacher/grades" element={<TeacherGradesPage />} />
-            <Route path="/teacher/profile" element={<TeacherProfilePage />} />
-        </Routes>
+    <div>
+      <nav>
+        <Link to="/">Login</Link> |{" "}
+        <Link to="/dashboard">Dashboard</Link> |{" "}
+        <Link to="/student/courses">Student Courses</Link> |{" "}
+        <Link to="/student/grades">Student Grades</Link> |{" "}
+        <Link to="/student/profile">Student Profile</Link> |{" "}
+        <Link to="/teacher/courses">Teacher Courses</Link> |{" "}
+        <Link to="/teacher/grades">Teacher Grades</Link> |{" "}
+        <Link to="/teacher/profile">Teacher Profile</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/student/courses" element={<StudentCoursesPage />} />
+        <Route path="/student/grades" element={<StudentGradesPage />} />
+        <Route path="/student/profile" element={<StudentProfilePage />} />
+        <Route path="/teacher/courses" element={<TeacherCoursesPage />} />
+        <Route path="/teacher/grades" element={<TeacherGradesPage />} />
+        <Route path="/teacher/profile" element={<TeacherProfilePage />} />
+      </Routes>
     </div>
+  );
 }
+
 export default App;
