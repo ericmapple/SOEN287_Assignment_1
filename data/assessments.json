@@ -1,0 +1,17 @@
+[
+  {
+    "id": "a1",
+    "ownerId": "u1",
+    "courseId": "c1",
+    "title": "Assignment 1",
+    "category": "Assignment",
+    "weight": 15,
+    "earnedMarks": 18,
+    "totalMarks": 20,
+    "dueDate": "2026-04-10",
+    "status": "completed"
+  }
+
+
+  
+]
