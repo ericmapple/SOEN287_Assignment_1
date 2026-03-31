@@ -1,0 +1,18 @@
+[
+  {
+    "id": "t1",
+    "ownerId": "u2",
+    "name": "SOEN 287 Structure",
+    "courseCode": "SOEN 287",
+    "categories": [
+      { "name": "Assignments", "weight": 20 },
+      { "name": "Labs", "weight": 10 },
+      { "name": "Midterm", "weight": 30 },
+      { "name": "Final", "weight": 40 }
+      
+    ]
+  }
+
+
+
+]

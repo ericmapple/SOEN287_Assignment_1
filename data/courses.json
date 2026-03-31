@@ -1,0 +1,15 @@
+[
+  {
+    "id": "c1",
+    "ownerId": "u1",
+    "ownerRole": "student",
+    "code": "SOEN 287",
+    "name": "Web Programming",
+    "instructor": "Prof X",
+    "term": "Winter 2026",
+    "enabled": true
+  }
+
+
+  
+]
