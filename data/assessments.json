@@ -69,7 +69,7 @@
     "earnedMarks": null,
     "totalMarks": 100,
     "dueDate": "2026-04-07",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "id": "a1775443596217663",
@@ -81,6 +81,30 @@
     "earnedMarks": null,
     "totalMarks": 100,
     "dueDate": "2026-04-07",
+    "status": "completed"
+  },
+  {
+    "id": "a1775445953090595",
+    "ownerId": "u4",
+    "courseId": "c2",
+    "title": "Assignment 1",
+    "category": "CS",
+    "weight": 15,
+    "earnedMarks": 90.5,
+    "totalMarks": 100,
+    "dueDate": "2026-04-10",
+    "status": "pending"
+  },
+  {
+    "id": "a1775445953091577",
+    "ownerId": "u6",
+    "courseId": "c4",
+    "title": "Assignment 1",
+    "category": "CS",
+    "weight": 15,
+    "earnedMarks": null,
+    "totalMarks": 100,
+    "dueDate": "2026-04-10",
     "status": "pending"
   }
 ]

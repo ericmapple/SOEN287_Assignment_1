@@ -5,10 +5,22 @@
     "name": "SOEN 287 Structure",
     "courseCode": "SOEN 287",
     "categories": [
-      { "name": "Assignments", "weight": 20 },
-      { "name": "Labs", "weight": 10 },
-      { "name": "Midterm", "weight": 30 },
-      { "name": "Final", "weight": 40 }
+      {
+        "name": "Assignments",
+        "weight": 20
+      },
+      {
+        "name": "Labs",
+        "weight": 10
+      },
+      {
+        "name": "Midterm",
+        "weight": 30
+      },
+      {
+        "name": "Final",
+        "weight": 40
+      }
     ]
   },
   {
@@ -17,10 +29,42 @@
     "name": "COMP 248 Structure",
     "courseCode": "COMP 248",
     "categories": [
-      { "name": "Labs", "weight": 20 },
-      { "name": "Assignments", "weight": 20 },
-      { "name": "Midterm", "weight": 25 },
-      { "name": "Final", "weight": 35 }
+      {
+        "name": "Labs",
+        "weight": 20
+      },
+      {
+        "name": "Assignments",
+        "weight": 20
+      },
+      {
+        "name": "Midterm",
+        "weight": 25
+      },
+      {
+        "name": "Final",
+        "weight": 35
+      }
+    ]
+  },
+  {
+    "id": "t1775446182726708",
+    "ownerId": "u2",
+    "name": "Temp",
+    "courseCode": "SOEN 287",
+    "categories": [
+      {
+        "name": "Assignment",
+        "weight": 30
+      },
+      {
+        "name": "Exam",
+        "weight": 60
+      },
+      {
+        "name": "Labs",
+        "weight": 10
+      }
     ]
   }
 ]
