@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import {
   createTeacherCourse,
   fetchTeacherCourses,
-  fetchTeacherTemplates,
   toggleTeacherCourse,
+  updateTeacherCourse,
 } from "../api";
 import PageLayout from "../components/PageLayout";
 import { teacherNavItems } from "../navigation";
@@ -12,7 +12,6 @@ import { teacherNavItems } from "../navigation";
 function TeacherCoursesPage(props) {
   const { currentUser, onLogout } = props;
   const [courses, setCourses] = useState([]);
-  const [templates, setTemplates] = useState([]);
   const [form, setForm] = useState({
     code: "",
     title: "",
@@ -21,6 +20,12 @@ function TeacherCoursesPage(props) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [editingCourseId, setEditingCourseId] = useState(null);
+  const [editForm, setEditForm] = useState({
+    code: "",
+    title: "",
+    term: "",
+  });
 
   useEffect(
     function () {
@@ -31,14 +36,10 @@ function TeacherCoursesPage(props) {
         setError("");
 
         try {
-          const [coursesData, templatesData] = await Promise.all([
-            fetchTeacherCourses(currentUser.id),
-            fetchTeacherTemplates(currentUser.id),
-          ]);
+          const coursesData = await fetchTeacherCourses(currentUser.id);
 
           if (!ignore) {
             setCourses(coursesData);
-            setTemplates(templatesData);
           }
         } catch (loadError) {
           if (!ignore) {
@@ -91,6 +92,61 @@ function TeacherCoursesPage(props) {
     }
   }
 
+  function startEdit(course) {
+    setEditingCourseId(course.id);
+    setEditForm({
+      code: course.code,
+      title: course.title,
+      term: course.term,
+    });
+    setMessage("");
+    setError("");
+  }
+
+  function cancelEdit() {
+    setEditingCourseId(null);
+    setEditForm({
+      code: "",
+      title: "",
+      term: "",
+    });
+  }
+
+  function handleEditChange(event) {
+    const { name, value } = event.target;
+    setEditForm(function (currentForm) {
+      return {
+        ...currentForm,
+        [name]: value,
+      };
+    });
+  }
+
+  async function handleEditSubmit(event, courseId) {
+    event.preventDefault();
+    setMessage("");
+    setError("");
+
+    try {
+      const data = await updateTeacherCourse(currentUser.id, courseId, editForm);
+
+      setCourses(function (currentCourses) {
+        return currentCourses.map(function (course) {
+          if (course.id === courseId) {
+            return data.course;
+          }
+
+          return course;
+        });
+      });
+
+      setMessage("Teacher course updated successfully.");
+      cancelEdit();
+    } catch (editError) {
+      setError(editError.message);
+    }
+  }
+
   async function handleToggle(courseId) {
     setMessage("");
     setError("");
@@ -116,20 +172,20 @@ function TeacherCoursesPage(props) {
     <PageLayout
       currentUser={currentUser}
       title="Teacher Courses"
-      subtitle="Course management"
+      subtitle="Teacher course manager"
       navItems={teacherNavItems}
       onLogout={onLogout}
       pageClassName="course-page"
       headerBadge={
         <div>
-          <span className="badge-label">Course Templates</span>
-          <strong>{templates.length}</strong>
+          <span className="badge-label">My Courses</span>
+          <strong>{courses.length}</strong>
         </div>
       }
       menuExtra={
         <div>
-          <h3>Templates</h3>
-          <p>Templates stay available while you add or disable courses.</p>
+          <h3>Separated Flow</h3>
+          <p>This page is now only for creating and managing course sections.</p>
         </div>
       }
     >
@@ -140,7 +196,7 @@ function TeacherCoursesPage(props) {
         <section className="card">
           <div className="card-header">
             <h2>Create a Course</h2>
-            <p>This uses the teacher course API routes.</p>
+            <p>Save one teacher course section at a time.</p>
           </div>
 
           <form className="form-card" onSubmit={handleSubmit}>
@@ -164,7 +220,7 @@ function TeacherCoursesPage(props) {
         <section className="card">
           <div className="card-header">
             <h2>My Courses</h2>
-            <p>Toggle them on or off without leaving the page.</p>
+            <p>Edit and enable/disable your existing courses.</p>
           </div>
 
           {loading ? <p className="status-message">Loading courses...</p> : null}
@@ -183,53 +239,80 @@ function TeacherCoursesPage(props) {
                       <p>{course.title}</p>
                     </div>
 
-                    <button
-                      type="button"
-                      className="secondary-button"
-                      onClick={function () {
-                        handleToggle(course.id);
-                      }}
-                    >
-                      {course.enabled ? "Disable" : "Enable"}
-                    </button>
+                    <div className="pill-group">
+                      <button
+                        type="button"
+                        className="secondary-button"
+                        onClick={function () {
+                          startEdit(course);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        className="secondary-button"
+                        onClick={function () {
+                          handleToggle(course.id);
+                        }}
+                      >
+                        {course.enabled ? "Disable" : "Enable"}
+                      </button>
+                    </div>
                   </div>
 
                   <p>Term: {course.term}</p>
                   <p>Status: {course.enabled ? "Enabled" : "Disabled"}</p>
+
+                  {editingCourseId === course.id ? (
+                    <form
+                      className="form-card"
+                      onSubmit={function (event) {
+                        handleEditSubmit(event, course.id);
+                      }}
+                    >
+                      <div className="form-grid">
+                        <label htmlFor={`edit-code-${course.id}`}>Course Code</label>
+                        <input
+                          id={`edit-code-${course.id}`}
+                          name="code"
+                          value={editForm.code}
+                          onChange={handleEditChange}
+                          required
+                        />
+
+                        <label htmlFor={`edit-title-${course.id}`}>Course Title</label>
+                        <input
+                          id={`edit-title-${course.id}`}
+                          name="title"
+                          value={editForm.title}
+                          onChange={handleEditChange}
+                          required
+                        />
+
+                        <label htmlFor={`edit-term-${course.id}`}>Term</label>
+                        <input
+                          id={`edit-term-${course.id}`}
+                          name="term"
+                          value={editForm.term}
+                          onChange={handleEditChange}
+                          required
+                        />
+                      </div>
+
+                      <div className="pill-group">
+                        <button type="submit" className="primary-button">
+                          Save Changes
+                        </button>
+                        <button type="button" className="secondary-button" onClick={cancelEdit}>
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                  ) : null}
                 </article>
               );
             })}
-          </div>
-        </section>
-
-        <section className="card">
-          <div className="card-header">
-            <h2>Saved Templates</h2>
-            <p>Teacher template data from the backend</p>
-          </div>
-
-          <div className="course-summary-list">
-            {templates.length === 0 ? (
-              <p className="empty-state">No templates created yet.</p>
-            ) : (
-              templates.map(function (template) {
-                return (
-                  <article key={template.id} className="course-summary-card">
-                    <h3>{template.name}</h3>
-                    <p>{template.courseCode}</p>
-                    <div className="chips">
-                      {template.categories.map(function (category) {
-                        return (
-                          <span key={`${template.id}-${category.name}`}>
-                            {category.name} {category.weight}%
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </article>
-                );
-              })
-            )}
           </div>
         </section>
       </div>

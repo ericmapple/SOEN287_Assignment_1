@@ -109,6 +109,14 @@ function createStudentCourse(userId, courseData) {
   });
 }
 
+function updateStudentCourse(userId, courseId, courseData) {
+  return apiRequest(`/api/student/courses/${courseId}`, {
+    method: "PATCH",
+    userId,
+    body: courseData,
+  });
+}
+
 function deleteStudentCourse(userId, courseId) {
   return apiRequest(`/api/student/courses/${courseId}`, {
     method: "DELETE",
@@ -128,6 +136,21 @@ function createStudentAssessment(userId, assessmentData) {
   });
 }
 
+function updateStudentAssessment(userId, assessmentId, assessmentData) {
+  return apiRequest(`/api/student/assessments/${assessmentId}`, {
+    method: "PATCH",
+    userId,
+    body: assessmentData,
+  });
+}
+
+function deleteStudentAssessment(userId, assessmentId) {
+  return apiRequest(`/api/student/assessments/${assessmentId}`, {
+    method: "DELETE",
+    userId,
+  });
+}
+
 function fetchTeacherCourses(userId) {
   return apiRequest("/api/teacher/courses", { userId });
 }
@@ -140,6 +163,14 @@ function createTeacherCourse(userId, courseData) {
   });
 }
 
+function updateTeacherCourse(userId, courseId, courseData) {
+  return apiRequest(`/api/teacher/courses/${courseId}`, {
+    method: "PATCH",
+    userId,
+    body: courseData,
+  });
+}
+
 function toggleTeacherCourse(userId, courseId) {
   return apiRequest(`/api/teacher/courses/${courseId}/toggle`, {
     method: "PATCH",
@@ -147,8 +178,43 @@ function toggleTeacherCourse(userId, courseId) {
   });
 }
 
+function publishTeacherAssessment(userId, publishData) {
+  return apiRequest("/api/teacher/assessments/publish", {
+    method: "POST",
+    userId,
+    body: publishData,
+  });
+}
+
+function fetchTeacherAssessments(userId) {
+  return apiRequest("/api/teacher/assessments", { userId });
+}
+
+function updateTeacherPublishedAssessment(userId, assessmentId, assessmentData) {
+  return apiRequest(`/api/teacher/assessments/${assessmentId}`, {
+    method: "PATCH",
+    userId,
+    body: assessmentData,
+  });
+}
+
+function deleteTeacherPublishedAssessment(userId, assessmentId) {
+  return apiRequest(`/api/teacher/assessments/${assessmentId}`, {
+    method: "DELETE",
+    userId,
+  });
+}
+
 function fetchTeacherTemplates(userId) {
   return apiRequest("/api/teacher/templates", { userId });
+}
+
+function createTeacherTemplate(userId, templateData) {
+  return apiRequest("/api/teacher/templates", {
+    method: "POST",
+    userId,
+    body: templateData,
+  });
 }
 
 function fetchTeacherStats(userId) {
@@ -159,6 +225,14 @@ function fetchTeacherGradebook(userId) {
   return apiRequest("/api/teacher/gradebook", { userId });
 }
 
+function updateTeacherAssessmentGrade(userId, assessmentId, gradeData) {
+  return apiRequest(`/api/teacher/assessments/${assessmentId}/grade`, {
+    method: "PATCH",
+    userId,
+    body: gradeData,
+  });
+}
+
 export {
   API_BASE_URL,
   apiRequest,
@@ -167,13 +241,23 @@ export {
   fetchStudentDashboard,
   fetchStudentCourses,
   createStudentCourse,
+  updateStudentCourse,
   deleteStudentCourse,
   fetchStudentAssessments,
   createStudentAssessment,
+  updateStudentAssessment,
+  deleteStudentAssessment,
   fetchTeacherCourses,
   createTeacherCourse,
+  updateTeacherCourse,
   toggleTeacherCourse,
+  publishTeacherAssessment,
+  fetchTeacherAssessments,
+  updateTeacherPublishedAssessment,
+  deleteTeacherPublishedAssessment,
   fetchTeacherTemplates,
+  createTeacherTemplate,
   fetchTeacherStats,
   fetchTeacherGradebook,
+  updateTeacherAssessmentGrade,
 };

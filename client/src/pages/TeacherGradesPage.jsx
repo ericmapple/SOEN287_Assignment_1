@@ -1,49 +1,102 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-import { fetchTeacherGradebook } from "../api";
+import { fetchTeacherGradebook, updateTeacherAssessmentGrade } from "../api";
 import PageLayout from "../components/PageLayout";
 import { teacherNavItems } from "../navigation";
 import { formatPercent } from "../utils";
 
+function buildGradeEdits(courses) {
+  const edits = {};
+
+  for (let i = 0; i < courses.length; i++) {
+    const entries = courses[i].entries || [];
+
+    for (let j = 0; j < entries.length; j++) {
+      const entry = entries[j];
+      edits[entry.id] = {
+        earnedMarks:
+          entry.earnedMarks === null || entry.earnedMarks === undefined
+            ? ""
+            : String(entry.earnedMarks),
+        status: entry.status || "pending",
+      };
+    }
+  }
+
+  return edits;
+}
+
 function TeacherGradesPage(props) {
   const { currentUser, onLogout } = props;
   const [gradebook, setGradebook] = useState([]);
+  const [gradeEdits, setGradeEdits] = useState({});
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [savingAssessmentId, setSavingAssessmentId] = useState(null);
+
+  const loadGradebookData = useCallback(async function () {
+    setLoading(true);
+    setError("");
+
+    try {
+      const data = await fetchTeacherGradebook(currentUser.id);
+      setGradebook(data.courses);
+      setGradeEdits(buildGradeEdits(data.courses));
+    } catch (loadError) {
+      setError(loadError.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [currentUser.id]);
 
   useEffect(
     function () {
-      let ignore = false;
-
-      async function loadGradebook() {
-        setLoading(true);
-        setError("");
-
-        try {
-          const data = await fetchTeacherGradebook(currentUser.id);
-
-          if (!ignore) {
-            setGradebook(data.courses);
-          }
-        } catch (loadError) {
-          if (!ignore) {
-            setError(loadError.message);
-          }
-        } finally {
-          if (!ignore) {
-            setLoading(false);
-          }
-        }
-      }
-
-      loadGradebook();
-
-      return function () {
-        ignore = true;
-      };
+      loadGradebookData();
     },
-    [currentUser.id]
+    [loadGradebookData]
   );
+
+  function updateGradeEdit(assessmentId, field, value) {
+    setGradeEdits(function (currentEdits) {
+      const currentAssessmentEdit = currentEdits[assessmentId] || {
+        earnedMarks: "",
+        status: "pending",
+      };
+
+      return {
+        ...currentEdits,
+        [assessmentId]: {
+          ...currentAssessmentEdit,
+          [field]: value,
+        },
+      };
+    });
+  }
+
+  async function saveAssessmentGrade(assessmentId) {
+    setMessage("");
+    setError("");
+    setSavingAssessmentId(assessmentId);
+
+    try {
+      const currentEdit = gradeEdits[assessmentId] || {
+        earnedMarks: "",
+        status: "pending",
+      };
+
+      await updateTeacherAssessmentGrade(currentUser.id, assessmentId, {
+        earnedMarks: currentEdit.earnedMarks,
+        status: currentEdit.status,
+      });
+      await loadGradebookData();
+      setMessage("Grade updated successfully.");
+    } catch (saveError) {
+      setError(saveError.message);
+    } finally {
+      setSavingAssessmentId(null);
+    }
+  }
 
   return (
     <PageLayout
@@ -62,10 +115,11 @@ function TeacherGradesPage(props) {
       menuExtra={
         <div>
           <h3>Gradebook</h3>
-          <p>This page now pulls course and student summaries from the backend.</p>
+          <p>Add or modify grades directly in this page.</p>
         </div>
       }
     >
+      {message ? <p className="status-message success-message">{message}</p> : null}
       {error ? <p className="status-message error-message">{error}</p> : null}
       {loading ? <p className="status-message">Loading gradebook...</p> : null}
 
@@ -146,6 +200,79 @@ function TeacherGradesPage(props) {
                           <td>{formatPercent(assessment.averageScore)}</td>
                           <td>
                             {assessment.submissions} / {assessment.totalStudents}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )}
+
+              <h3 className="section-title">Add / Modify Grades</h3>
+
+              {!course.entries || course.entries.length === 0 ? (
+                <p className="empty-state">No grade entries for this course yet.</p>
+              ) : (
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Assessment</th>
+                      <th>Score</th>
+                      <th>Status</th>
+                      <th>Save</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {course.entries.map(function (entry) {
+                      const currentEdit = gradeEdits[entry.id] || {
+                        earnedMarks:
+                          entry.earnedMarks === null || entry.earnedMarks === undefined
+                            ? ""
+                            : String(entry.earnedMarks),
+                        status: entry.status || "pending",
+                      };
+
+                      return (
+                        <tr key={entry.id}>
+                          <td>{entry.studentName}</td>
+                          <td>{entry.title}</td>
+                          <td>
+                            <div className="grade-edit-row">
+                              <input
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                value={currentEdit.earnedMarks}
+                                onChange={function (event) {
+                                  updateGradeEdit(entry.id, "earnedMarks", event.target.value);
+                                }}
+                              />
+                              <span>/ {entry.totalMarks}</span>
+                            </div>
+                          </td>
+                          <td>
+                            <select
+                              value={currentEdit.status}
+                              onChange={function (event) {
+                                updateGradeEdit(entry.id, "status", event.target.value);
+                              }}
+                            >
+                              <option value="pending">Pending</option>
+                              <option value="completed">Completed</option>
+                            </select>
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              className="secondary-button"
+                              onClick={function () {
+                                saveAssessmentGrade(entry.id);
+                              }}
+                              disabled={savingAssessmentId === entry.id}
+                            >
+                              {savingAssessmentId === entry.id ? "Saving..." : "Save"}
+                            </button>
                           </td>
                         </tr>
                       );

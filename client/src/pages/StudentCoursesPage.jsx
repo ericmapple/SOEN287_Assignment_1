@@ -5,6 +5,7 @@ import {
   deleteStudentCourse,
   fetchStudentAssessments,
   fetchStudentCourses,
+  updateStudentCourse,
 } from "../api";
 import PageLayout from "../components/PageLayout";
 import { studentNavItems } from "../navigation";
@@ -22,6 +23,13 @@ function StudentCoursesPage(props) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [editingCourseId, setEditingCourseId] = useState(null);
+  const [editForm, setEditForm] = useState({
+    code: "",
+    name: "",
+    instructor: "",
+    term: "",
+  });
 
   useEffect(
     function () {
@@ -121,6 +129,63 @@ function StudentCoursesPage(props) {
     }
   }
 
+  function startEdit(course) {
+    setEditingCourseId(course.id);
+    setEditForm({
+      code: course.code,
+      name: course.name,
+      instructor: course.instructor,
+      term: course.term,
+    });
+    setMessage("");
+    setError("");
+  }
+
+  function cancelEdit() {
+    setEditingCourseId(null);
+    setEditForm({
+      code: "",
+      name: "",
+      instructor: "",
+      term: "",
+    });
+  }
+
+  function handleEditChange(event) {
+    const { name, value } = event.target;
+    setEditForm(function (currentForm) {
+      return {
+        ...currentForm,
+        [name]: value,
+      };
+    });
+  }
+
+  async function handleEditSubmit(event, courseId) {
+    event.preventDefault();
+    setMessage("");
+    setError("");
+
+    try {
+      const data = await updateStudentCourse(currentUser.id, courseId, editForm);
+
+      setCourses(function (currentCourses) {
+        return currentCourses.map(function (course) {
+          if (course.id === courseId) {
+            return data.course;
+          }
+
+          return course;
+        });
+      });
+
+      setMessage("Course updated successfully.");
+      cancelEdit();
+    } catch (editError) {
+      setError(editError.message);
+    }
+  }
+
   function getAssessmentCount(courseId) {
     let count = 0;
 
@@ -212,21 +277,87 @@ function StudentCoursesPage(props) {
                       <h3>{course.code}</h3>
                       <p>{course.name}</p>
                     </div>
-
-                    <button
-                      type="button"
-                      className="secondary-button"
-                      onClick={function () {
-                        handleDelete(course.id);
-                      }}
-                    >
-                      Delete
-                    </button>
+                    <div className="pill-group">
+                      <button
+                        type="button"
+                        className="secondary-button"
+                        onClick={function () {
+                          startEdit(course);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        className="secondary-button"
+                        onClick={function () {
+                          handleDelete(course.id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
 
                   <p>Instructor: {course.instructor}</p>
                   <p>Term: {course.term}</p>
                   <p>Assessments: {getAssessmentCount(course.id)}</p>
+
+                  {editingCourseId === course.id ? (
+                    <form
+                      className="form-card"
+                      onSubmit={function (event) {
+                        handleEditSubmit(event, course.id);
+                      }}
+                    >
+                      <div className="form-grid">
+                        <label htmlFor={`edit-code-${course.id}`}>Course Code</label>
+                        <input
+                          id={`edit-code-${course.id}`}
+                          name="code"
+                          value={editForm.code}
+                          onChange={handleEditChange}
+                          required
+                        />
+
+                        <label htmlFor={`edit-name-${course.id}`}>Course Name</label>
+                        <input
+                          id={`edit-name-${course.id}`}
+                          name="name"
+                          value={editForm.name}
+                          onChange={handleEditChange}
+                          required
+                        />
+
+                        <label htmlFor={`edit-instructor-${course.id}`}>Instructor</label>
+                        <input
+                          id={`edit-instructor-${course.id}`}
+                          name="instructor"
+                          value={editForm.instructor}
+                          onChange={handleEditChange}
+                          required
+                        />
+
+                        <label htmlFor={`edit-term-${course.id}`}>Term</label>
+                        <input
+                          id={`edit-term-${course.id}`}
+                          name="term"
+                          value={editForm.term}
+                          onChange={handleEditChange}
+                          required
+                        />
+                      </div>
+
+                      <div className="pill-group">
+                        <button type="submit" className="primary-button">
+                          Save Changes
+                        </button>
+                        <button type="button" className="secondary-button" onClick={cancelEdit}>
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                  ) : null}
                 </article>
               );
             })}

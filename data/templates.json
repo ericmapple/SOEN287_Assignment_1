@@ -9,10 +9,18 @@
       { "name": "Labs", "weight": 10 },
       { "name": "Midterm", "weight": 30 },
       { "name": "Final", "weight": 40 }
-      
+    ]
+  },
+  {
+    "id": "t2",
+    "ownerId": "u3",
+    "name": "COMP 248 Structure",
+    "courseCode": "COMP 248",
+    "categories": [
+      { "name": "Labs", "weight": 20 },
+      { "name": "Assignments", "weight": 20 },
+      { "name": "Midterm", "weight": 25 },
+      { "name": "Final", "weight": 35 }
     ]
   }
-
-
-
 ]

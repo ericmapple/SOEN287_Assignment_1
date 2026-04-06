@@ -1,6 +1,7 @@
 const studentNavItems = [
   { to: "/dashboard", label: "Dashboard" },
   { to: "/student/courses", label: "My Courses" },
+  { to: "/student/assessments", label: "Assessments" },
   { to: "/student/grades", label: "Grades" },
   { to: "/student/profile", label: "Profile" },
 ];
@@ -8,6 +9,8 @@ const studentNavItems = [
 const teacherNavItems = [
   { to: "/dashboard", label: "Dashboard" },
   { to: "/teacher/courses", label: "My Courses" },
+  { to: "/teacher/assessments", label: "Assessments" },
+  { to: "/teacher/templates", label: "Templates" },
   { to: "/teacher/grades", label: "Grades" },
   { to: "/teacher/profile", label: "Profile" },
 ];
