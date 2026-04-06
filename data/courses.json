@@ -8,8 +8,14 @@
     "instructor": "Prof X",
     "term": "Winter 2026",
     "enabled": true
+  },
+  {
+    "id": "tc1",
+    "ownerId": "u2",
+    "ownerRole": "teacher",
+    "code": "SOEN 287",
+    "title": "Web Programming",
+    "term": "Winter 2026",
+    "enabled": true
   }
-
-
-  
 ]

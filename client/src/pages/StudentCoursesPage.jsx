@@ -1,121 +1,239 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import "../styles.css";
+import {
+  createStudentCourse,
+  deleteStudentCourse,
+  fetchStudentAssessments,
+  fetchStudentCourses,
+} from "../api";
+import PageLayout from "../components/PageLayout";
+import { studentNavItems } from "../navigation";
 
-function StudentCoursesPage() {
+function StudentCoursesPage(props) {
+  const { currentUser, onLogout } = props;
+  const [courses, setCourses] = useState([]);
+  const [assessments, setAssessments] = useState([]);
+  const [form, setForm] = useState({
+    code: "",
+    name: "",
+    instructor: "",
+    term: "",
+  });
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(
+    function () {
+      let ignore = false;
+
+      async function loadCoursesPage() {
+        setLoading(true);
+        setError("");
+
+        try {
+          const [coursesData, assessmentsData] = await Promise.all([
+            fetchStudentCourses(currentUser.id),
+            fetchStudentAssessments(currentUser.id),
+          ]);
+
+          if (!ignore) {
+            setCourses(coursesData);
+            setAssessments(assessmentsData);
+          }
+        } catch (loadError) {
+          if (!ignore) {
+            setError(loadError.message);
+          }
+        } finally {
+          if (!ignore) {
+            setLoading(false);
+          }
+        }
+      }
+
+      loadCoursesPage();
+
+      return function () {
+        ignore = true;
+      };
+    },
+    [currentUser.id]
+  );
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setForm(function (currentForm) {
+      return {
+        ...currentForm,
+        [name]: value,
+      };
+    });
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setMessage("");
+    setError("");
+
+    try {
+      const data = await createStudentCourse(currentUser.id, form);
+      setCourses(function (currentCourses) {
+        return [...currentCourses, data.course];
+      });
+      setForm({
+        code: "",
+        name: "",
+        instructor: "",
+        term: "",
+      });
+      setMessage("Course added successfully.");
+    } catch (submitError) {
+      setError(submitError.message);
+    }
+  }
+
+  async function handleDelete(courseId) {
+    const shouldDelete = window.confirm("Delete this course and its assessments?");
+
+    if (!shouldDelete) {
+      return;
+    }
+
+    setMessage("");
+    setError("");
+
+    try {
+      await deleteStudentCourse(currentUser.id, courseId);
+      setCourses(function (currentCourses) {
+        return currentCourses.filter(function (course) {
+          return course.id !== courseId;
+        });
+      });
+      setAssessments(function (currentAssessments) {
+        return currentAssessments.filter(function (assessment) {
+          return assessment.courseId !== courseId;
+        });
+      });
+      setMessage("Course deleted successfully.");
+    } catch (deleteError) {
+      setError(deleteError.message);
+    }
+  }
+
+  function getAssessmentCount(courseId) {
+    let count = 0;
+
+    for (let i = 0; i < assessments.length; i++) {
+      if (assessments[i].courseId === courseId) {
+        count++;
+      }
+    }
+
+    return count;
+  }
+
   return (
-
-    <div className="course-page">
-      <div className="container">
-        <div className="menu">
-          <h2>Hello, FirstName!</h2>
-          <a href="#">Home</a>
-          <a href="#">Profile</a>
-          <a href="#">Message</a>
-          <a href="#">Dashboard</a>
-          <a href="#">My Courses</a>
-
-          <ul style={{ listStyleType: "circle" }}>
-            <li>
-              <a href="#">[Course]</a>
-            </li>
-            <li>
-              <a href="#">[Course]</a>
-            </li>
-          </ul>
-
-          <a href="#">Grades</a>
-          <a href="#">Academic</a>
-          <a href="#">Help</a>
-          <a href="#">Log out</a>
+    <PageLayout
+      currentUser={currentUser}
+      title="My Courses"
+      subtitle="Student courses"
+      navItems={studentNavItems}
+      onLogout={onLogout}
+      pageClassName="course-page"
+      headerBadge={
+        <div>
+          <span className="badge-label">Total Courses</span>
+          <strong>{courses.length}</strong>
         </div>
-
-        <div className="header1 bg-light-blue">
-          <h2>[COURSE NAME]-[SECTION] (Instructor)</h2>
+      }
+      menuExtra={
+        <div>
+          <h3>Manage Courses</h3>
+          <p>Add your own course list and keep it saved in the backend.</p>
         </div>
+      }
+    >
+      {message ? <p className="status-message success-message">{message}</p> : null}
+      {error ? <p className="status-message error-message">{error}</p> : null}
 
-        <div className="content">
-          {/* Overall */}
-          <a href="#">Course</a> | <a href="#">Grades</a> |{" "}
-          <a href="#">Participants</a> (links tba later)
-
-          <div className="course bg-soft-blue">
-            <p>
-              Hello students, welcome to [course]. <br />
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita
-              nobis placeat in ad esse voluptates reprehenderit ex obcaecati
-              sint tempora recusandae nostrum fugiat, fugit minima quidem,
-              nesciunt minus nisi aspernatur quaerat quos, enim magnam
-              dignissimos aut.
-            </p>
-
-            <div className="course-header bg-light-blue">
-              <h2>Announcements</h2>
-            </div>
-
-            <div>
-              Latest:
-              <h4>Exam date change [dd/mm/yyyy]</h4>
-              <p>
-                Moved from May 1st to April 23rd! Please remember to bring your
-                cheat sheet.
-              </p>
-            </div>
-
-            <a href="#">Older announcements</a>
-
-            <p></p>
-
-            <div className="course-header bg-light-blue">
-              <h2>Assessments</h2>
-            </div>
-
-            <div>
-              <h4>Assignment 1 (30 points)</h4>
-              <p>Due date: dd/mm/yyyy</p>
-              <p>Submitted in class.</p>
-              <p>
-                (assessment info). Lorem ipsum, dolor sit amet consectetur
-                adipisicing elit. Expedita nobis placeat in ad esse voluptates
-                reprehenderit ex obcaecati sint tempora recusandae nostrum
-                fugiat, fugit minima quidem, nesciunt minus nisi aspernatur
-                quaerat quos.
-              </p>
-              <h4>
-                Rubric: Efficiency /5 Design /10 Presentation /10 Functionality
-                /5 Total /30
-              </h4>
-            </div>
-
-            <a href="#">{">>"} Other assessments</a>{" "}
-            <span className="text-alert">
-              !! One assessment past due [dd/mm/yyyy hh/min]:{" "}
-              <a href="#">"Introductions"</a> !!
-            </span>
-
-            <p></p>
-
-            <div className="course-header bg-light-blue">
-              <div>
-                <h2>Week 1</h2>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <p>See file below for course outline.</p>
-              <p>[file]</p>
-            </div>
+      <div className="content-grid">
+        <section className="card">
+          <div className="card-header">
+            <h2>Add a Course</h2>
+            <p>This writes directly to the backend JSON data.</p>
           </div>
-        </div>
 
-        <div className="footer">
-          <footer>footer</footer>
-        </div>
+          <form className="form-card" onSubmit={handleSubmit}>
+            <div className="form-grid">
+              <label htmlFor="code">Course Code</label>
+              <input id="code" name="code" value={form.code} onChange={handleChange} required />
+
+              <label htmlFor="name">Course Name</label>
+              <input id="name" name="name" value={form.name} onChange={handleChange} required />
+
+              <label htmlFor="instructor">Instructor</label>
+              <input
+                id="instructor"
+                name="instructor"
+                value={form.instructor}
+                onChange={handleChange}
+                required
+              />
+
+              <label htmlFor="term">Term</label>
+              <input id="term" name="term" value={form.term} onChange={handleChange} required />
+            </div>
+
+            <button type="submit" className="primary-button">
+              Save Course
+            </button>
+          </form>
+        </section>
+
+        <section className="card">
+          <div className="card-header">
+            <h2>Saved Courses</h2>
+            <p>React is now reading these from the backend instead of placeholders.</p>
+          </div>
+
+          {loading ? <p className="status-message">Loading courses...</p> : null}
+
+          {!loading && courses.length === 0 ? (
+            <p className="empty-state">No courses yet.</p>
+          ) : null}
+
+          <div className="course-summary-list">
+            {courses.map(function (course) {
+              return (
+                <article key={course.id} className="course-summary-card">
+                  <div className="course-summary-head">
+                    <div>
+                      <h3>{course.code}</h3>
+                      <p>{course.name}</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="secondary-button"
+                      onClick={function () {
+                        handleDelete(course.id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+
+                  <p>Instructor: {course.instructor}</p>
+                  <p>Term: {course.term}</p>
+                  <p>Assessments: {getAssessmentCount(course.id)}</p>
+                </article>
+              );
+            })}
+          </div>
+        </section>
       </div>
-    </div>
+    </PageLayout>
   );
 }
 

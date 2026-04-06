@@ -6,7 +6,8 @@ const { readJSON, writeJSON, makeId } = require("./fileManager");
 const { calculateAverage, calculateProgress, getUpcomingAssessments } = require("./calc");
 
 const app = express();
-const PORT = 5000;
+const PORT = Number(process.env.PORT) || 5000;
+const HOST = "127.0.0.1";
 
 // Let the React frontend talk to this backend
 app.use(cors());
@@ -992,6 +993,141 @@ app.post("/api/teacher/templates", function (req, res) {
 
 
 /*
+  TEACHER GRADEBOOK
+*/
+
+app.get("/api/teacher/gradebook", function (req, res) {
+  const user = getCurrentUser(req);
+
+  if (!user) {
+    return sendUnauthorized(res, "Please log in first.");
+  }
+
+  if (user.role !== "teacher") {
+    return sendForbidden(res, "Only teachers can access the gradebook.");
+  }
+
+  const users = getUsers();
+  const teacherCourses = getCourses().filter(function (course) {
+    return course.ownerId === user.id && course.ownerRole === "teacher";
+  });
+  const studentCourses = getCourses().filter(function (course) {
+    return course.ownerRole === "student";
+  });
+  const assessments = getAssessments();
+
+  const gradebookCourses = teacherCourses.map(function (teacherCourse) {
+    const matchingStudentCourses = studentCourses.filter(function (studentCourse) {
+      return studentCourse.code === teacherCourse.code;
+    });
+
+    const studentSummaries = matchingStudentCourses.map(function (studentCourse) {
+      const relatedUser = users.find(function (currentUser) {
+        return currentUser.id === studentCourse.ownerId;
+      });
+      const studentAssessments = assessments.filter(function (assessment) {
+        return assessment.courseId === studentCourse.id;
+      });
+
+      return {
+        studentId: relatedUser ? relatedUser.id : studentCourse.ownerId,
+        studentName: relatedUser ? relatedUser.name : "Unknown Student",
+        average: calculateAverage(studentAssessments),
+        progress: calculateProgress(studentAssessments),
+        completedAssessments: studentAssessments.filter(function (assessment) {
+          return assessment.status === "completed";
+        }).length,
+        totalAssessments: studentAssessments.length,
+      };
+    });
+
+    const relatedStudentCourseIds = matchingStudentCourses.map(function (course) {
+      return course.id;
+    });
+    const relatedAssessments = assessments.filter(function (assessment) {
+      return relatedStudentCourseIds.includes(assessment.courseId);
+    });
+    const assessmentMap = {};
+
+    for (let i = 0; i < relatedAssessments.length; i++) {
+      const assessment = relatedAssessments[i];
+
+      if (!assessmentMap[assessment.title]) {
+        assessmentMap[assessment.title] = {
+          title: assessment.title,
+          submissions: 0,
+          totalScore: 0,
+          scoredCount: 0,
+        };
+      }
+
+      if (
+        typeof assessment.earnedMarks === "number" &&
+        typeof assessment.totalMarks === "number" &&
+        assessment.totalMarks > 0
+      ) {
+        assessmentMap[assessment.title].submissions += 1;
+        assessmentMap[assessment.title].totalScore +=
+          (assessment.earnedMarks / assessment.totalMarks) * 100;
+        assessmentMap[assessment.title].scoredCount += 1;
+      }
+    }
+
+    const assessmentSummaries = Object.values(assessmentMap).map(function (summary) {
+      return {
+        title: summary.title,
+        averageScore:
+          summary.scoredCount === 0
+            ? 0
+            : Number((summary.totalScore / summary.scoredCount).toFixed(2)),
+        submissions: summary.submissions,
+        totalStudents: matchingStudentCourses.length,
+      };
+    });
+
+    const totalAverage =
+      studentSummaries.length === 0
+        ? 0
+        : Number(
+            (
+              studentSummaries.reduce(function (sum, summary) {
+                return sum + summary.average;
+              }, 0) / studentSummaries.length
+            ).toFixed(2)
+          );
+
+    const totalProgress =
+      studentSummaries.length === 0
+        ? 0
+        : Number(
+            (
+              studentSummaries.reduce(function (sum, summary) {
+                return sum + summary.progress;
+              }, 0) / studentSummaries.length
+            ).toFixed(2)
+          );
+
+    return {
+      id: teacherCourse.id,
+      code: teacherCourse.code,
+      title: teacherCourse.title,
+      term: teacherCourse.term,
+      enabled: teacherCourse.enabled,
+      totalStudents: matchingStudentCourses.length,
+      average: totalAverage,
+      progress: totalProgress,
+      students: studentSummaries,
+      assessments: assessmentSummaries,
+    };
+  });
+
+  res.json({
+    teacher: cleanUser(user),
+    courses: gradebookCourses,
+  });
+});
+
+/*
   TEACHER STATS
 */
 
@@ -1053,8 +1189,13 @@ app.get("/api/teacher/stats", function (req, res) {
   });
 });
 
-app.listen(PORT, function () {
-  console.log("Server running on port " + PORT);
+const server = app.listen(PORT, HOST, function () {
+  console.log("Server running on http://" + HOST + ":" + PORT);
+});
+
+server.on("error", function (error) {
+  console.error("Server failed to start:", error.message);
+  process.exit(1);
 });
 
 

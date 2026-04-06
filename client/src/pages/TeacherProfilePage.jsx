@@ -1,110 +1,124 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import "../styles.css";
+import { fetchTeacherCourses, fetchTeacherStats, fetchTeacherTemplates } from "../api";
+import PageLayout from "../components/PageLayout";
+import { teacherNavItems } from "../navigation";
+import { formatPercent } from "../utils";
 
-function TeacherProfilePage() {
+function TeacherProfilePage(props) {
+  const { currentUser, onLogout } = props;
+  const [courses, setCourses] = useState([]);
+  const [templates, setTemplates] = useState([]);
+  const [stats, setStats] = useState(null);
+  const [error, setError] = useState("");
+
+  useEffect(
+    function () {
+      let ignore = false;
+
+      async function loadProfileData() {
+        try {
+          const [coursesData, templatesData, statsData] = await Promise.all([
+            fetchTeacherCourses(currentUser.id),
+            fetchTeacherTemplates(currentUser.id),
+            fetchTeacherStats(currentUser.id),
+          ]);
+
+          if (!ignore) {
+            setCourses(coursesData);
+            setTemplates(templatesData);
+            setStats(statsData);
+          }
+        } catch (loadError) {
+          if (!ignore) {
+            setError(loadError.message);
+          }
+        }
+      }
+
+      loadProfileData();
+
+      return function () {
+        ignore = true;
+      };
+    },
+    [currentUser.id]
+  );
+
   return (
-    <div className="portal-page">
-      <div className="container">
-        <div className="menu">
-          <h2>Hello, ProfName!</h2>
-          <a href="#">Home</a>
-          <Link to="/teacher/profile">Profile</Link>
-          <a href="#">Messages</a>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/teacher/courses">My Courses</Link>
-          <Link to="/teacher/grades">Grades (Teacher)</Link>
-          <a href="#">Help</a>
-          <Link to="/">Log out</Link>
+    <PageLayout
+      currentUser={currentUser}
+      title="Profile"
+      subtitle="Teacher information"
+      navItems={teacherNavItems}
+      onLogout={onLogout}
+      pageClassName="portal-page"
+      headerBadge={
+        <div>
+          <span className="badge-label">Templates</span>
+          <strong>{templates.length}</strong>
         </div>
-
-        <div className="header1">
-          <h2>Prof. FirstName LastName (TeacherID)</h2>
+      }
+      menuExtra={
+        <div>
+          <h3>Teaching Summary</h3>
+          <p>Connected to the same data used by the teacher dashboard and gradebook.</p>
         </div>
+      }
+    >
+      {error ? <p className="status-message error-message">{error}</p> : null}
 
-        <div className="header2">
-          <div>
-            <strong>Photo</strong>
-            <br />
-            <small>(optional)</small>
-          </div>
-        </div>
-
-        <div className="content">
-          <div className="section">
-            <h3>Teacher Information</h3>
-            <table>
-              <tbody>
-                <tr>
-                  <td className="label">Full name</td>
-                  <td>Prof. FirstName LastName</td>
-                </tr>
-                <tr>
-                  <td className="label">Teacher ID</td>
-                  <td>T0000</td>
-                </tr>
-                <tr>
-                  <td className="label">Email</td>
-                  <td>prof.lastname@email.com</td>
-                </tr>
-                <tr>
-                  <td className="label">Office</td>
-                  <td>Room X-000</td>
-                </tr>
-                <tr>
-                  <td className="label">Office hours</td>
-                  <td>Mon 2–4pm, Thu 10–11am (example)</td>
-                </tr>
-              </tbody>
-            </table>
+      <div className="content-grid">
+        <section className="card">
+          <div className="card-header">
+            <h2>Account Information</h2>
           </div>
 
-          <div className="section">
-            <h3>About</h3>
-            <p>
-              2–4 lines: teaching interests, research topics, what students
-              should know, etc.
-            </p>
+          <table className="info-table">
+            <tbody>
+              <tr>
+                <td>Name</td>
+                <td>{currentUser.name}</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>{currentUser.email}</td>
+              </tr>
+              <tr>
+                <td>User ID</td>
+                <td>{currentUser.id}</td>
+              </tr>
+              <tr>
+                <td>Role</td>
+                <td>{currentUser.role}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section className="card">
+          <div className="card-header">
+            <h2>Teaching Metrics</h2>
           </div>
 
-          <div className="section">
-            <h3>Courses Taught</h3>
-            <ul className="course-list">
-              <li>
-                <strong>COMP 249</strong> — Object-Oriented Programming II
-              </li>
-              <li>
-                <strong>COMP 2XX</strong> — Another course
-              </li>
-              <li>
-                <strong>COMP 3XX</strong> — Another course
-              </li>
-            </ul>
+          <div className="stats-grid">
+            <article className="status-card">
+              <span>Courses</span>
+              <strong>{courses.length}</strong>
+            </article>
+            <article className="status-card">
+              <span>Student Sections</span>
+              <strong>{stats?.totalRelatedStudentCourses || 0}</strong>
+            </article>
+            <article className="status-card">
+              <span>Completion</span>
+              <strong>{formatPercent(stats?.completionPercentage || 0)}</strong>
+            </article>
           </div>
-
-          <div className="section">
-            <h3>Quick Actions</h3>
-            <ul>
-              <li>
-                <Link to="/teacher/grades">Manage grades</Link>
-              </li>
-              <li>
-                <a href="#">Send a message to students</a>
-              </li>
-              <li>
-                <Link to="/dashboard">Go to dashboard</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="footer">
-          <footer>COMP Project • Teacher Page</footer>
-        </div>
+        </section>
       </div>
-    </div>
+    </PageLayout>
   );
 }
 
-// To make the file accessible to other files
 export default TeacherProfilePage;

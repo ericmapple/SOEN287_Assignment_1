@@ -1,37 +1,104 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import "../styles.css";
+import { loginUser } from "../api";
 
-function LoginPage(){
-    return (
-        <div id="login-container">
-            <h1>Login</h1>
+function LoginPage(props) {
+  const { currentUser, onLogin } = props;
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-            <form id="login-form" action="#">
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" id="email" required/>
-                </div>
+  useEffect(
+    function () {
+      if (currentUser) {
+        navigate("/dashboard", { replace: true });
+      }
+    },
+    [currentUser, navigate]
+  );
 
-                        <br/>
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setForm(function (currentForm) {
+      return {
+        ...currentForm,
+        [name]: value,
+      };
+    });
+  }
 
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input type="password" id="password" required/>
-                </div>
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setLoading(true);
+    setMessage("");
 
-                        <br/>
+    try {
+      const data = await loginUser(form.email, form.password);
+      onLogin(data.user);
+      navigate("/dashboard", { replace: true });
+    } catch (error) {
+      setMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
-                <button type="submit">Log in</button>
+  return (
+    <div className="login-page">
+      <div id="login-container">
+        <p className="eyebrow">Smart Course Companion</p>
+        <h1>Login</h1>
+        <p className="login-copy">
+          Use the sample student or teacher account to test both sides of the app.
+        </p>
 
-                <p id="message"></p>
-            </form>
+        <form id="login-form" onSubmit={handleSubmit}>
+          <div className="form-grid">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button type="submit" className="primary-button" disabled={loading}>
+            {loading ? "Logging in..." : "Log in"}
+          </button>
+        </form>
+
+        {message ? <p id="message">{message}</p> : null}
+
+        <div className="demo-box">
+          <h3>Demo Accounts</h3>
+          <p>
+            Student: <strong>eric@email.com</strong> / <strong>1234</strong>
+          </p>
+          <p>
+            Teacher: <strong>teacher@concordia.ca</strong> / <strong>1234</strong>
+          </p>
         </div>
-)
-
-
+      </div>
+    </div>
+  );
 }
 
-
-// To make the file accessible to other files
 export default LoginPage;
