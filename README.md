@@ -14,7 +14,7 @@ This project is a web-based Smart Course Companion that helps students and teach
 ### Student
 - Dashboard with course averages and upcoming assessments
 - Add and delete courses
-- Add assessments
+- Add/manage assessments
 - View grade breakdown by course
 - View profile information from backend user data
 
