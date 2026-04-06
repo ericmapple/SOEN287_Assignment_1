@@ -56,5 +56,14 @@
     "title": "Object-Oriented Programming I",
     "term": "Winter 2026",
     "enabled": true
+  },
+  {
+    "id": "tc1775445887650763",
+    "ownerId": "u3",
+    "ownerRole": "teacher",
+    "code": "SOEN 387",
+    "title": "Web sjabsdhbas",
+    "term": "Fall 2026",
+    "enabled": true
   }
 ]

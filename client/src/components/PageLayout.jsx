@@ -8,7 +8,6 @@ function PageLayout(props) {
     title,
     subtitle,
     navItems,
-    headerBadge,
     menuExtra,
     children,
     footerText,
@@ -64,8 +63,6 @@ function PageLayout(props) {
             {subtitle ? <p className="eyebrow">{subtitle}</p> : null}
             <h1>{title}</h1>
           </div>
-
-          {headerBadge ? <div className="header2">{headerBadge}</div> : null}
         </header>
 
         <main className="content">{children}</main>
