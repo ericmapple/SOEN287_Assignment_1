@@ -7,10 +7,7 @@ function StudentGradesPage() {
     <div className="portal-page">
       <div className="container">
         <div className="menu">
-          <h2>Hello, FirstName!</h2>
-          <a href="#">Home</a>
           <Link to="/student/profile">Profile</Link>
-          <a href="#">Message</a>
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/student/courses">My Courses</Link>
           <Link to="/student/grades">Grades</Link>
@@ -24,8 +21,6 @@ function StudentGradesPage() {
             </li>
           </ul>
 
-          <a href="#">Academic</a>
-          <a href="#">Help</a>
           <Link to="/">Log out</Link>
         </div>
 
