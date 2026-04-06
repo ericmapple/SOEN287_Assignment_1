@@ -11,13 +11,19 @@ This project is a web-based Smart Course Companion that helps students and teach
 - Role-based React routing
 - Shared styling through `client/src/styles.css`
 - Separated page structure for courses, assessments, grades, and templates
-
+ 
 ### Student
 - Dashboard with course averages and upcoming assessments
-- Add, edit, and delete courses
+
+- Add, edit, and delete course
 - View teacher-published assessments
 - Mark assessments as pending or completed
 - View grade breakdown by course on a dedicated Grades page
+
+- Add and delete courses
+- Add/manage assessments
+- View grade breakdown by course
+
 - View profile information from backend user data
 
 ### Teacher
