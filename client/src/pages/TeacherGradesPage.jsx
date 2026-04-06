@@ -1,167 +1,164 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import "../styles.css";
+import { fetchTeacherGradebook } from "../api";
+import PageLayout from "../components/PageLayout";
+import { teacherNavItems } from "../navigation";
+import { formatPercent } from "../utils";
 
-function TeacherGradesPage() {
+function TeacherGradesPage(props) {
+  const { currentUser, onLogout } = props;
+  const [gradebook, setGradebook] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(
+    function () {
+      let ignore = false;
+
+      async function loadGradebook() {
+        setLoading(true);
+        setError("");
+
+        try {
+          const data = await fetchTeacherGradebook(currentUser.id);
+
+          if (!ignore) {
+            setGradebook(data.courses);
+          }
+        } catch (loadError) {
+          if (!ignore) {
+            setError(loadError.message);
+          }
+        } finally {
+          if (!ignore) {
+            setLoading(false);
+          }
+        }
+      }
+
+      loadGradebook();
+
+      return function () {
+        ignore = true;
+      };
+    },
+    [currentUser.id]
+  );
+
   return (
-    <div className="portal-page">
-      <div className="container">
-        <div className="menu">
-          <h2>Hello, FirstName!</h2>
-          <a href="#">Home</a>
-          <Link to="/teacher/profile">Profile</Link>
-          <a href="#">Message</a>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/teacher/courses">My Courses</Link>
-          <Link to="/teacher/grades">Grades</Link>
-
-          <ul className="submenu">
-            <li>
-              <a href="#">Add New Assessment</a>
-            </li>
-            <li>
-              <a href="#">Modify Assessment</a>
-            </li>
-          </ul>
-
-          <a href="#">Academic</a>
-          <a href="#">Help</a>
-          <Link to="/">Log out</Link>
+    <PageLayout
+      currentUser={currentUser}
+      title="Grades"
+      subtitle="Teacher gradebook"
+      navItems={teacherNavItems}
+      onLogout={onLogout}
+      pageClassName="portal-page"
+      headerBadge={
+        <div>
+          <span className="badge-label">Tracked Courses</span>
+          <strong>{gradebook.length}</strong>
         </div>
-
-        <div className="header1 bg-light-blue">
-          <h2>GRADES - Class 1</h2>
+      }
+      menuExtra={
+        <div>
+          <h3>Gradebook</h3>
+          <p>This page now pulls course and student summaries from the backend.</p>
         </div>
+      }
+    >
+      {error ? <p className="status-message error-message">{error}</p> : null}
+      {loading ? <p className="status-message">Loading gradebook...</p> : null}
 
-        <div className="header2">
-          <div>
-            AVG
-            <br />
-            100%
-          </div>
-        </div>
+      {!loading && gradebook.length === 0 ? (
+        <p className="empty-state">No grade data available yet.</p>
+      ) : null}
 
-        <div className="content">
-          <div className="course bg-soft-blue">
-            <div className="course-header bg-light-blue">
-              <h3>Student Details</h3>
-              <p>Average Score: 100%</p>
-            </div>
+      <div className="course-summary-list">
+        {gradebook.map(function (course) {
+          return (
+            <section key={course.id} className="card">
+              <div className="card-header">
+                <div>
+                  <h2>{course.code}</h2>
+                  <p>
+                    {course.title} • {course.term}
+                  </p>
+                </div>
 
-            <table className="bg-table-blue spaced-bottom">
-              <colgroup>
-                <col style={{ width: "25%" }} />
-                <col style={{ width: "25%" }} />
-                <col style={{ width: "15%" }} />
-                <col style={{ width: "15%" }} />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th>Student</th>
-                  <th>Student ID</th>
-                  <th>Score</th>
-                  <th>GPA</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Name</td>
-                  <td>1234567</td>
-                  <td>-/10</td>
-                  <td>3.00</td>
-                </tr>
-                <tr>
-                  <td>Name</td>
-                  <td>1234567</td>
-                  <td>-/10</td>
-                  <td>3.00</td>
-                </tr>
-                <tr>
-                  <td>Name</td>
-                  <td>1234567</td>
-                  <td>-/10</td>
-                  <td>3.00</td>
-                </tr>
-                <tr>
-                  <td>Name</td>
-                  <td>1234567</td>
-                  <td>-/10</td>
-                  <td>3.00</td>
-                </tr>
-                <tr>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                </tr>
-              </tbody>
-            </table>
+                <div className="pill-group">
+                  <span className="pill">Students: {course.totalStudents}</span>
+                  <span className="pill">Average: {formatPercent(course.average)}</span>
+                  <span className="pill">Progress: {formatPercent(course.progress)}</span>
+                </div>
+              </div>
 
-            <div className="course-header bg-light-blue">
-              <h4>Assignment 1</h4>
-              <p>Average Score: 100%</p>
-            </div>
+              <h3 className="section-title">Student Summary</h3>
 
-            <table className="bg-table-blue spaced-bottom">
-              <colgroup>
-                <col style={{ width: "25%" }} />
-                <col style={{ width: "25%" }} />
-                <col style={{ width: "15%" }} />
-                <col style={{ width: "15%" }} />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th>Student</th>
-                  <th>Student ID</th>
-                  <th>Score</th>
-                  <th>GPA</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Name</td>
-                  <td>1234567</td>
-                  <td>-/10</td>
-                  <td>3.00</td>
-                </tr>
-                <tr>
-                  <td>Name</td>
-                  <td>1234567</td>
-                  <td>-/10</td>
-                  <td>3.00</td>
-                </tr>
-                <tr>
-                  <td>Name</td>
-                  <td>1234567</td>
-                  <td>-/10</td>
-                  <td>3.00</td>
-                </tr>
-                <tr>
-                  <td>Name</td>
-                  <td>1234567</td>
-                  <td>-/10</td>
-                  <td>3.00</td>
-                </tr>
-                <tr>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                  <td>...</td>
-                </tr>
-              </tbody>
-            </table>
+              {course.students.length === 0 ? (
+                <p className="empty-state">No student sections matched this course code yet.</p>
+              ) : (
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Student ID</th>
+                      <th>Average</th>
+                      <th>Progress</th>
+                      <th>Completed</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {course.students.map(function (student) {
+                      return (
+                        <tr key={`${course.id}-${student.studentId}`}>
+                          <td>{student.studentName}</td>
+                          <td>{student.studentId}</td>
+                          <td>{formatPercent(student.average)}</td>
+                          <td>{formatPercent(student.progress)}</td>
+                          <td>
+                            {student.completedAssessments} / {student.totalAssessments}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )}
 
-            <h4>....[more assessments/evaluations would be here]</h4>
-          </div>
-        </div>
+              <h3 className="section-title">Assessment Summary</h3>
 
-        <div className="footer">
-          <footer>footer</footer>
-        </div>
+              {course.assessments.length === 0 ? (
+                <p className="empty-state">No assessments linked to this course yet.</p>
+              ) : (
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Assessment</th>
+                      <th>Average Score</th>
+                      <th>Submissions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {course.assessments.map(function (assessment) {
+                      return (
+                        <tr key={`${course.id}-${assessment.title}`}>
+                          <td>{assessment.title}</td>
+                          <td>{formatPercent(assessment.averageScore)}</td>
+                          <td>
+                            {assessment.submissions} / {assessment.totalStudents}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )}
+            </section>
+          );
+        })}
       </div>
-    </div>
+    </PageLayout>
   );
 }
 
-// To make the file accessible to other files
 export default TeacherGradesPage;

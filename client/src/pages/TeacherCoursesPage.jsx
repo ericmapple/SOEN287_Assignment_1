@@ -1,123 +1,240 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import "../styles.css";
+import {
+  createTeacherCourse,
+  fetchTeacherCourses,
+  fetchTeacherTemplates,
+  toggleTeacherCourse,
+} from "../api";
+import PageLayout from "../components/PageLayout";
+import { teacherNavItems } from "../navigation";
 
-function TeacherCoursesPage() {
+function TeacherCoursesPage(props) {
+  const { currentUser, onLogout } = props;
+  const [courses, setCourses] = useState([]);
+  const [templates, setTemplates] = useState([]);
+  const [form, setForm] = useState({
+    code: "",
+    title: "",
+    term: "",
+  });
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(
+    function () {
+      let ignore = false;
+
+      async function loadTeacherCourses() {
+        setLoading(true);
+        setError("");
+
+        try {
+          const [coursesData, templatesData] = await Promise.all([
+            fetchTeacherCourses(currentUser.id),
+            fetchTeacherTemplates(currentUser.id),
+          ]);
+
+          if (!ignore) {
+            setCourses(coursesData);
+            setTemplates(templatesData);
+          }
+        } catch (loadError) {
+          if (!ignore) {
+            setError(loadError.message);
+          }
+        } finally {
+          if (!ignore) {
+            setLoading(false);
+          }
+        }
+      }
+
+      loadTeacherCourses();
+
+      return function () {
+        ignore = true;
+      };
+    },
+    [currentUser.id]
+  );
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setForm(function (currentForm) {
+      return {
+        ...currentForm,
+        [name]: value,
+      };
+    });
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setMessage("");
+    setError("");
+
+    try {
+      const data = await createTeacherCourse(currentUser.id, form);
+      setCourses(function (currentCourses) {
+        return [...currentCourses, data.course];
+      });
+      setForm({
+        code: "",
+        title: "",
+        term: "",
+      });
+      setMessage("Teacher course created successfully.");
+    } catch (submitError) {
+      setError(submitError.message);
+    }
+  }
+
+  async function handleToggle(courseId) {
+    setMessage("");
+    setError("");
+
+    try {
+      const data = await toggleTeacherCourse(currentUser.id, courseId);
+
+      setCourses(function (currentCourses) {
+        return currentCourses.map(function (course) {
+          if (course.id === courseId) {
+            return data.course;
+          }
+
+          return course;
+        });
+      });
+    } catch (toggleError) {
+      setError(toggleError.message);
+    }
+  }
+
   return (
-    <div className="course-page">
-      <div className="container">
-        <div className="menu">
-          <h2>Hello, FirstName!</h2>
-          <a href="#">Home</a>
-          <Link to="/teacher/profile">Profile</Link>
-          <a href="#">Message</a>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/teacher/courses">My Courses</Link>
-
-          <ul className="submenu">
-            <li>
-              <a href="#">[Course]</a>
-            </li>
-            <li>
-              <a href="#">[Course]</a>
-            </li>
-          </ul>
-
-          <Link to="/teacher/grades">Grades</Link>
-          <a href="#">Academic</a>
-          <a href="#">Help</a>
-          <Link to="/">Log out</Link>
+    <PageLayout
+      currentUser={currentUser}
+      title="Teacher Courses"
+      subtitle="Course management"
+      navItems={teacherNavItems}
+      onLogout={onLogout}
+      pageClassName="course-page"
+      headerBadge={
+        <div>
+          <span className="badge-label">Course Templates</span>
+          <strong>{templates.length}</strong>
         </div>
-
-        <div className="header1 bg-light-blue">
-          <h2>[COURSE NAME]-[SECTION] (Instructor)</h2>
+      }
+      menuExtra={
+        <div>
+          <h3>Templates</h3>
+          <p>Templates stay available while you add or disable courses.</p>
         </div>
+      }
+    >
+      {message ? <p className="status-message success-message">{message}</p> : null}
+      {error ? <p className="status-message error-message">{error}</p> : null}
 
-        <div className="content">
-          <div className="link-row">
-            <a href="#">Course</a> | <a href="#">Grades</a> |{" "}
-            <a href="#">Participants</a> || <a href="#">Edit | Delete</a> (links
-            tba later)
+      <div className="content-grid">
+        <section className="card">
+          <div className="card-header">
+            <h2>Create a Course</h2>
+            <p>This uses the teacher course API routes.</p>
           </div>
 
-          <div className="course bg-soft-blue">
-            <p>
-              Hello students, welcome to [course]. <br />
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita
-              nobis placeat in ad esse voluptates reprehenderit ex obcaecati
-              sint tempora recusandae nostrum fugiat, fugit minima quidem,
-              nesciunt minus nisi aspernatur quaerat quos, enim magnam
-              dignissimos aut.
-            </p>
+          <form className="form-card" onSubmit={handleSubmit}>
+            <div className="form-grid">
+              <label htmlFor="code">Course Code</label>
+              <input id="code" name="code" value={form.code} onChange={handleChange} required />
 
-            <div className="course-header bg-light-blue">
-              <h2>Announcements</h2>
-              <a href="#">Edit | Delete</a>
+              <label htmlFor="title">Course Title</label>
+              <input id="title" name="title" value={form.title} onChange={handleChange} required />
+
+              <label htmlFor="term">Term</label>
+              <input id="term" name="term" value={form.term} onChange={handleChange} required />
             </div>
 
-            <div>
-              <p>Latest:</p>
-              <h4>Exam date change [dd/mm/yyyy]</h4>
-              <p>
-                Moved from May 1st to April 23rd! Please remember to bring your
-                cheat sheet.
-              </p>
-            </div>
+            <button type="submit" className="primary-button">
+              Save Course
+            </button>
+          </form>
+        </section>
 
-            <a href="#">Older announcements</a>
-
-            <p></p>
-
-            <div className="course-header bg-light-blue">
-              <h2>Assessments</h2>
-              <a href="#">Edit | Delete</a>
-            </div>
-
-            <div>
-              <h4>Assignment 1 (30 points)</h4>
-              <p>Due date: dd/mm/yyyy</p>
-              <p>Submitted in class.</p>
-              <p>
-                (assessment info). Lorem ipsum, dolor sit amet consectetur
-                adipisicing elit. Expedita nobis placeat in ad esse voluptates
-                reprehenderit ex obcaecati sint tempora recusandae nostrum
-                fugiat, fugit minima quidem, nesciunt minus nisi aspernatur
-                quaerat quos.
-              </p>
-              <h4>
-                Rubric: Efficiency /5 Design /10 Presentation /10 Functionality
-                /5 Total /30
-              </h4>
-            </div>
-
-            <a href="#">{">>"} Other assessments</a>{" "}
-            <span className="text-alert">
-              !! One assessment past due [dd/mm/yyyy hh/min]:{" "}
-              <a href="#">"Introductions"</a> !!
-            </span>
-
-            <p></p>
-
-            <div className="course-header bg-light-blue">
-              <h2>Week 1</h2>
-              <a href="#">Edit | Delete</a>
-            </div>
-
-            <div>
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-              <p>See file below for course outline.</p>
-              <p>[file]</p>
-            </div>
+        <section className="card">
+          <div className="card-header">
+            <h2>My Courses</h2>
+            <p>Toggle them on or off without leaving the page.</p>
           </div>
-        </div>
 
-        <div className="footer">
-          <footer>footer</footer>
-        </div>
+          {loading ? <p className="status-message">Loading courses...</p> : null}
+
+          {!loading && courses.length === 0 ? (
+            <p className="empty-state">No teacher courses yet.</p>
+          ) : null}
+
+          <div className="course-summary-list">
+            {courses.map(function (course) {
+              return (
+                <article key={course.id} className="course-summary-card">
+                  <div className="course-summary-head">
+                    <div>
+                      <h3>{course.code}</h3>
+                      <p>{course.title}</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="secondary-button"
+                      onClick={function () {
+                        handleToggle(course.id);
+                      }}
+                    >
+                      {course.enabled ? "Disable" : "Enable"}
+                    </button>
+                  </div>
+
+                  <p>Term: {course.term}</p>
+                  <p>Status: {course.enabled ? "Enabled" : "Disabled"}</p>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="card">
+          <div className="card-header">
+            <h2>Saved Templates</h2>
+            <p>Teacher template data from the backend</p>
+          </div>
+
+          <div className="course-summary-list">
+            {templates.length === 0 ? (
+              <p className="empty-state">No templates created yet.</p>
+            ) : (
+              templates.map(function (template) {
+                return (
+                  <article key={template.id} className="course-summary-card">
+                    <h3>{template.name}</h3>
+                    <p>{template.courseCode}</p>
+                    <div className="chips">
+                      {template.categories.map(function (category) {
+                        return (
+                          <span key={`${template.id}-${category.name}`}>
+                            {category.name} {category.weight}%
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </article>
+                );
+              })
+            )}
+          </div>
+        </section>
       </div>
-    </div>
+    </PageLayout>
   );
 }
 
-// To make the file accessible to other files
 export default TeacherCoursesPage;

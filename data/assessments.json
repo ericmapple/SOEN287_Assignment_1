@@ -10,8 +10,17 @@
     "totalMarks": 20,
     "dueDate": "2026-04-10",
     "status": "completed"
+  },
+  {
+    "id": "a2",
+    "ownerId": "u1",
+    "courseId": "c1",
+    "title": "Project Milestone",
+    "category": "Project",
+    "weight": 25,
+    "earnedMarks": null,
+    "totalMarks": 30,
+    "dueDate": "2026-04-18",
+    "status": "pending"
   }
-
-
-  
 ]

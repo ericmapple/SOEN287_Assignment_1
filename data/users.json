@@ -5,7 +5,12 @@
     "email": "eric@email.com",
     "password": "1234",
     "role": "student"
+  },
+  {
+    "id": "u2",
+    "name": "Prof Xavier",
+    "email": "teacher@concordia.ca",
+    "password": "1234",
+    "role": "teacher"
   }
-
-  
 ]
