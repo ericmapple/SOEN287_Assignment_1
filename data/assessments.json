@@ -22,5 +22,65 @@
     "totalMarks": 30,
     "dueDate": "2026-04-18",
     "status": "pending"
+  },
+  {
+    "id": "a3",
+    "ownerId": "u4",
+    "courseId": "c2",
+    "title": "Lab 1",
+    "category": "Lab",
+    "weight": 10,
+    "earnedMarks": 8,
+    "totalMarks": 10,
+    "dueDate": "2026-04-16",
+    "status": "completed"
+  },
+  {
+    "id": "a4",
+    "ownerId": "u5",
+    "courseId": "c3",
+    "title": "Quiz 1",
+    "category": "Quiz",
+    "weight": 10,
+    "earnedMarks": 7,
+    "totalMarks": 10,
+    "dueDate": "2026-04-14",
+    "status": "completed"
+  },
+  {
+    "id": "a5",
+    "ownerId": "u6",
+    "courseId": "c4",
+    "title": "Assignment 1",
+    "category": "Assignment",
+    "weight": 15,
+    "earnedMarks": null,
+    "totalMarks": 20,
+    "dueDate": "2026-04-22",
+    "status": "pending"
+  },
+  {
+    "id": "a1775443596217719",
+    "ownerId": "u1",
+    "courseId": "c1",
+    "title": "Assignment 1",
+    "category": "CS",
+    "weight": 20,
+    "earnedMarks": null,
+    "totalMarks": 100,
+    "dueDate": "2026-04-07",
+    "status": "pending"
+  },
+  {
+    "id": "a1775443596217663",
+    "ownerId": "u5",
+    "courseId": "c3",
+    "title": "Assignment 1",
+    "category": "CS",
+    "weight": 20,
+    "earnedMarks": null,
+    "totalMarks": 100,
+    "dueDate": "2026-04-07",
+    "status": "pending"
   }
 ]

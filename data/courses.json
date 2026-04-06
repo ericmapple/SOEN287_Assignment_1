@@ -5,7 +5,37 @@
     "ownerRole": "student",
     "code": "SOEN 287",
     "name": "Web Programming",
-    "instructor": "Prof X",
+    "instructor": "Abdelghani",
+    "term": "Winter 2026",
+    "enabled": true
+  },
+  {
+    "id": "c2",
+    "ownerId": "u4",
+    "ownerRole": "student",
+    "code": "COMP 248",
+    "name": "Object-Oriented Programming I",
+    "instructor": "Mohammad",
+    "term": "Winter 2026",
+    "enabled": true
+  },
+  {
+    "id": "c3",
+    "ownerId": "u5",
+    "ownerRole": "student",
+    "code": "SOEN 287",
+    "name": "Web Programming",
+    "instructor": "Abdelghani",
+    "term": "Winter 2026",
+    "enabled": true
+  },
+  {
+    "id": "c4",
+    "ownerId": "u6",
+    "ownerRole": "student",
+    "code": "COMP 248",
+    "name": "Object-Oriented Programming I",
+    "instructor": "Mohammad",
     "term": "Winter 2026",
     "enabled": true
   },
@@ -15,6 +45,15 @@
     "ownerRole": "teacher",
     "code": "SOEN 287",
     "title": "Web Programming",
+    "term": "Winter 2026",
+    "enabled": true
+  },
+  {
+    "id": "tc2",
+    "ownerId": "u3",
+    "ownerRole": "teacher",
+    "code": "COMP 248",
+    "title": "Object-Oriented Programming I",
     "term": "Winter 2026",
     "enabled": true
   }

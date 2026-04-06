@@ -90,10 +90,22 @@ function LoginPage(props) {
         <div className="demo-box">
           <h3>Demo Accounts</h3>
           <p>
-            Student: <strong>eric@email.com</strong> / <strong>1234</strong>
+            Student 1: <strong>eric@email.com</strong> / <strong>1234</strong>
           </p>
           <p>
-            Teacher: <strong>teacher@concordia.ca</strong> / <strong>1234</strong>
+            Student 2: <strong>karolina@email.com</strong> / <strong>1234</strong>
+          </p>
+          <p>
+            Student 3: <strong>oliver@email.com</strong> / <strong>1234</strong>
+          </p>
+          <p>
+            Student 4: <strong>paul-louis@email.com</strong> / <strong>1234</strong>
+          </p>
+          <p>
+            Teacher 1: <strong>abdelghani@concordia.ca</strong> / <strong>1234</strong>
+          </p>
+          <p>
+            Teacher 2: <strong>mohammad@concordia.ca</strong> / <strong>1234</strong>
           </p>
         </div>
       </div>

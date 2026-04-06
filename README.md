@@ -10,17 +10,23 @@ This project is a web-based Smart Course Companion that helps students and teach
 - Login page connected to the backend
 - Role-based React routing
 - Shared styling through `client/src/styles.css`
+- Separated page structure for courses, assessments, grades, and templates
 
 ### Student
 - Dashboard with course averages and upcoming assessments
-- Add and delete courses
-- Add assessments
-- View grade breakdown by course
+- Add, edit, and delete courses
+- View teacher-published assessments
+- Mark assessments as pending or completed
+- View grade breakdown by course on a dedicated Grades page
 - View profile information from backend user data
 
 ### Teacher
 - Dashboard with teaching stats
-- Create and enable/disable teacher courses
+- Create, edit, and enable/disable teacher courses
+- Publish assessments on a dedicated Assessments page
+- Edit and delete published assessments
+- Manage grading templates on a dedicated Templates page
+- Add and modify student grades from the teacher gradebook page
 - View grading templates
 - View a gradebook summary based on related student course data
 - View teacher profile and teaching metrics
@@ -45,13 +51,15 @@ The frontend runs on the Vite development server, usually `http://localhost:5173
 
 ## Demo Accounts
 
-### Student
-- Email: `eric@email.com`
-- Password: `1234`
+### Students
+- `eric@email.com` / `1234`
+- `karolina@email.com` / `1234`
+- `oliver@email.com` / `1234`
+- `paul-louis@email.com` / `1234`
 
-### Teacher
-- Email: `teacher@concordia.ca`
-- Password: `1234`
+### Teachers
+- `abdelghani@concordia.ca` / `1234`
+- `mohammad@concordia.ca` / `1234`
 
 ## Technologies Used
 

@@ -4,12 +4,15 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { fetchCurrentUser } from "./api";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
+import StudentAssessmentsPage from "./pages/StudentAssessmentsPage";
 import StudentCoursesPage from "./pages/StudentCoursesPage";
 import StudentGradesPage from "./pages/StudentGradesPage";
 import StudentProfilePage from "./pages/StudentProfilePage";
+import TeacherAssessmentsPage from "./pages/TeacherAssessmentsPage";
 import TeacherCoursesPage from "./pages/TeacherCoursesPage";
 import TeacherGradesPage from "./pages/TeacherGradesPage";
 import TeacherProfilePage from "./pages/TeacherProfilePage";
+import TeacherTemplatesPage from "./pages/TeacherTemplatesPage";
 
 function getStoredUser() {
   const savedUser = localStorage.getItem("cmsUser");
@@ -117,6 +120,15 @@ function App() {
       />
 
       <Route
+        path="/student/assessments"
+        element={
+          <ProtectedRoute currentUser={currentUser} allowedRoles={["student"]}>
+            <StudentAssessmentsPage currentUser={currentUser} onLogout={handleLogout} />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
         path="/student/profile"
         element={
           <ProtectedRoute currentUser={currentUser} allowedRoles={["student"]}>
@@ -139,6 +151,24 @@ function App() {
         element={
           <ProtectedRoute currentUser={currentUser} allowedRoles={["teacher"]}>
             <TeacherGradesPage currentUser={currentUser} onLogout={handleLogout} />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/teacher/assessments"
+        element={
+          <ProtectedRoute currentUser={currentUser} allowedRoles={["teacher"]}>
+            <TeacherAssessmentsPage currentUser={currentUser} onLogout={handleLogout} />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/teacher/templates"
+        element={
+          <ProtectedRoute currentUser={currentUser} allowedRoles={["teacher"]}>
+            <TeacherTemplatesPage currentUser={currentUser} onLogout={handleLogout} />
           </ProtectedRoute>
         }
       />

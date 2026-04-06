@@ -8,9 +8,37 @@
   },
   {
     "id": "u2",
-    "name": "Prof Xavier",
-    "email": "teacher@concordia.ca",
+    "name": "Abdelghani",
+    "email": "abdelghani@concordia.ca",
     "password": "1234",
     "role": "teacher"
+  },
+  {
+    "id": "u3",
+    "name": "Mohammad",
+    "email": "mohammad@concordia.ca",
+    "password": "1234",
+    "role": "teacher"
+  },
+  {
+    "id": "u4",
+    "name": "Karolina",
+    "email": "karolina@email.com",
+    "password": "1234",
+    "role": "student"
+  },
+  {
+    "id": "u5",
+    "name": "Oliver",
+    "email": "oliver@email.com",
+    "password": "1234",
+    "role": "student"
+  },
+  {
+    "id": "u6",
+    "name": "Paul-Louis",
+    "email": "paul-louis@email.com",
+    "password": "1234",
+    "role": "student"
   }
 ]
