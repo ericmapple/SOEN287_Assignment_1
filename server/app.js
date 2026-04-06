@@ -1056,3 +1056,20 @@ app.get("/api/teacher/stats", function (req, res) {
 app.listen(PORT, function () {
   console.log("Server running on port " + PORT);
 });
+
+
+
+
+// // ====== USER SESSION ======
+
+// app.use(session({ secret: 'mySecret', resave: false, saveUninitialized: true }));
+
+// app.get("/setSession", (request, response) => { 
+//   request.session.user = "John";
+//   response.send("Session set");
+// });
+
+// app.get("/getSession", (request, response) => {
+//   const user = request.session.user;
+//   response.send(user);
+// });
