@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - COMP 248</title>
+<link rel="stylesheet" href="../CSS/base.css">
+<link rel="stylesheet" href="../CSS/layout.css">
+<link rel="stylesheet" href="../CSS/components.css">
+<link rel="stylesheet" href="../CSS/utilities.css">
+<style>
+/* Main content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+/* Weekly schedule */
+.week-section {
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 10px;
+}
+.week-header {
+    font-weight: bold;
+    background-color: #e0e0e0;
+    padding: 8px;
+    margin-bottom: 5px;
+}
+.week-content div {
+    margin-bottom: 5px;
+}
+.icon {
+    margin-right: 5px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Sidebar Menu -->
+    <div class="menu">
+        <h2>Menu</h2>
+        <a href="#">Home</a>
+        <a href="#">Profile</a>
+        <a href="#">Message</a>
+        <a href="#">Dashboard</a>
+        <a href="#">My Courses</a>
+        <a href="#">Grades</a>            
+        <a href="#">Academic</a>
+        <a href="#">Help</a>
+        <a href="#">Log out</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>COMP 248 N 2289 (Winter 2026) - Weekly Schedule</h1>
+
+        <!-- Week 1 -->
+        <div class="week-section">
+            <div class="week-header">Week 1: Jan 12-16</div>
+            <div class="week-content">
+                <div><span class="icon">📄</span>Week 1 Slides</div>
+                <div><span class="icon">📄</span>No Tutorials during Week 1</div>
+            </div>
+        </div>
+
+        <!-- Week 2 -->
+        <div class="week-section">
+            <div class="week-header">Week 2: Jan 19-23</div>
+            <div class="week-content">
+                <div><span class="icon">📄</span>Week 2 Slides</div>
+                <div><span class="icon">📄</span>Week 2 Tutorial Problems</div>
+                <div><span class="icon">📝</span>Assignment #1 - due Monday, Feb 2 2026, 23:55hrs</div>
+                <div><span class="icon">📁</span>Submission of Assignment #1</div>
+                <div><span class="icon">📁</span>Assignment 1 Solution</div>
+            </div>
+        </div>
+
+        <!-- Week 3 -->
+        <div class="week-section">
+            <div class="week-header">Week 3: Jan 26-30</div>
+            <div class="week-content">
+                <div><span class="icon">📄</span>Week 3 Slides</div>
+                <div><span class="icon">📄</span>Week 3 Tutorial Problems</div>
+            </div>
+        </div>
+
+        <!-- Week 4 -->
+        <div class="week-section">
+            <div class="week-header">Week 4: Feb 2-6</div>
+            <div class="week-content">
+                <div><span class="icon">📝</span>Assignment #2 - due Monday, Feb 23 2026, 23:55hrs</div>
+                <div><span class="icon">📁</span>Submission of Assignment #2</div>
+                <div><span class="icon">📄</span>Week 4 Slides</div>
+                <div><span class="icon">📄</span>Week 4 Tutorial Problems</div>
+            </div>
+        </div>
+
+        <!-- Week 5 -->
+        <div class="week-section">
+            <div class="week-header">Week 5: Feb 9-13</div>
+            <div class="week-content">
+                <div><span class="icon">📄</span>Week 5 Slides</div>
+                <div><span class="icon">📄</span>Week 5 Tutorial Problems</div>
+            </div>
+        </div>
+
+        <!-- Reading Week -->
+        <div class="week-section">
+            <div class="week-header">Reading Week: Mar 2-6</div>
+            <div class="week-content">
+                <div>No Tutorial or Office Hour during Reading Week</div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
